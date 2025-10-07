@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: #000;
+}
+
+body {
+    background-color: transparent;
+}
+
 .background-container {
     text-align: center;
     height: 100%;
@@ -15,35 +23,23 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    transition: 10s;
-
-    animation-name: animate;
-    animation-direction: alternate-reverse;
-    animation-duration: 40s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
-    animation-timing-function: ease-in-out;
-
-
-
+    animation: animate 45s steps(1, end) infinite;
 }
 
 @keyframes animate {
     0% {
-        background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png)
+        background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png);
     }
-    5%,
-    25% {
+    20% {
         background-image: url(../images/images_50/Sub_Focus_Lazers_03_50.png);
     }
-    45% {
+    40% {
         background-image: url(../images/images_50/Sub_Focus_Opening_Jib_Shot50.png);
     }
-    65% {
+    60% {
         background-image: url(../images/images_50/FFD_Venue_Wide_50.png);
     }
-    85% {
+    80% {
         background-image: url(../images/images_50/FFD_Hands_02_50.png)
     }
     100% {
