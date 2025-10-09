@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.host": "localhost",
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "/Users/simonlowes/Library/Mobile Documents/com~apple~CloudDocs/ReLiveRecordingsRepo/reliverecordings/localhost+1.pem",
+    "key": "/Users/simonlowes/Library/Mobile Documents/com~apple~CloudDocs/ReLiveRecordingsRepo/reliverecordings/localhost+1-key.pem"
+  }
+}
