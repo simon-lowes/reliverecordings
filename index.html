@@ -120,7 +120,7 @@
         if (!notice) {
             return;
         }
-        var storageKey = 'rlrPrivacyNoticeDismissed';
+        var storageKey = 'rlrPrivacyNoticeDismissed-v2';
         try {
             if (window.localStorage.getItem(storageKey)) {
                 notice.classList.add('is-hidden');
