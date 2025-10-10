@@ -100,7 +100,7 @@ nav li {
     text-decoration: none;
 } 
 
- nav a {
+nav a {
     font-weight: 900;
     text-decoration: none;
     color: #fff;
@@ -179,6 +179,24 @@ nav a:link {
 nav a:hover {
     color: #e91d26;
     transition: all .5s ease-in-out;
+    text-decoration: none;
+}
+
+nav a:focus,
+nav a:active {
+    text-decoration: none;
+    outline: none;
+}
+
+nav a,
+nav a:visited,
+nav a:hover,
+nav a:focus,
+nav a:active {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    -webkit-text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
 }
 
 
@@ -200,6 +218,81 @@ a {
     text-decoration: none;
 }
 
+.privacy-notice {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90vw, 420px);
+    background: rgba(0, 0, 0, 0.88);
+    color: #fff;
+    border: 2px solid #e91d26;
+    border-radius: 18px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
+    z-index: 1500;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.privacy-notice.is-hidden {
+    display: none;
+}
+
+.privacy-notice__close {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.75rem;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.privacy-notice__close:hover,
+.privacy-notice__close:focus {
+    color: #e91d26;
+}
+
+.privacy-notice__icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.privacy-notice__content {
+    font-size: 0.95rem;
+}
+
+.privacy-notice__content h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+    .privacy-notice {
+        padding: 1.25rem 1.5rem;
+        border-radius: 14px;
+        gap: 0.85rem;
+    }
+
+    .privacy-notice__icon {
+        font-size: 2rem;
+    }
+
+    .privacy-notice__content h2 {
+        font-size: 1.1rem;
+    }
+}
+
 a:visited {
     text-decoration: none;
 }
@@ -219,7 +312,7 @@ a:link {
 }
 
 a .logo {
-   height: 40vh;
+   height: 28vh;
    margin: 1em;
    /* display: inline-block; */
 }
@@ -230,7 +323,7 @@ a:hover .logo {
 
 a .logo-hover {
    display: none;
-   height: 40vh;
+   height: 28vh;
    margin: 1em;
 }
 
@@ -378,20 +471,8 @@ ul {
     }
 
     nav a::before {
-        content: '';
-        display: block;
-        height: 5px;
-        background: #e91d26;
-        position: absolute;
-        bottom: -.75em;
-        left: 0;
-        right: 0;
-        transform: scale(0, 1);
-        transition: transform ease-in-out 250ms;
-    }
-
-    nav a:hover::before {
-        transform: scale(1, 1); 
+        content: none;
+        display: none;
     }
 } 
 
