@@ -1,148 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-<head>
-    
-
-    <link href="images/favicon.jpg" rel="shortcut icon" type="image/png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <link href="images/favicon.jpg" rel="shortcut icon" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+    <link rel="preconnect" href="https://open.spotify.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
+    <link rel="dns-prefetch" href="https://open.spotify.com" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="re:liverecordings – live event recording and production. Watch the latest sets and playlists."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="re:liverecordings" />
+    <meta
+      property="og:description"
+      content="Live event recording and production. Watch the latest sets and playlists."
+    />
+    <meta
+      property="og:image"
+      content="images/ReLiveLogoRED%20TRANSPARENT.png"
+    />
+    <meta property="og:url" content="https://reliverecordings.co.uk" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="re:liverecordings" />
+    <meta
+      name="twitter:description"
+      content="Live event recording and production. Watch the latest sets and playlists."
+    />
+    <meta
+      name="twitter:image"
+      content="images/ReLiveLogoRED%20TRANSPARENT.png"
+    />
     <title>re:liverecordings</title>
-    
-</head>
+  </head>
 
+  <body>
+    <div class="background-container">
+      <header>
+        <a href="index.html">
+          <img
+            src="images/ReLiveLogoWHITE TRANSPARENT.png"
+            class="logo"
+            alt="re:liverecordings"
+          />
+          <img
+            src="images/ReLiveLogoRED TRANSPARENT.png"
+            class="logo-hover"
+            alt="re:liverecordings hover"
+          />
+        </a>
 
+        <input
+          type="checkbox"
+          id="nav-toggle"
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+        />
 
-<body>
-<div class="background-container">
-  
-
-<header>
-
-    <a href="index.html">
-        <img src="images/ReLiveLogoWHITE TRANSPARENT.png" class="logo">
-        <img src="images/ReLiveLogoRED TRANSPARENT.png" class="logo-hover">
-    </a>
-
-
-
-    <input type="checkbox" id="nav-toggle" class="nav-toggle">
-
-    <nav>
-        <ul>
+        <nav>
+          <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="https://www.linkedin.com/in/reliverecordings/" target="_blank">About</a></li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/reliverecordings/"
+                target="_blank"
+                >About</a
+              >
+            </li>
             <li><a href="mailto:rob@reliverecordings.co.uk">Contact</a></li>
-        </ul>
-    </nav>
-    <label for="nav-toggle" class="nav-toggle-label">
-        <span></span>
-    </label>
-    
-    
-    
-    
-</header>
+          </ul>
+        </nav>
+        <label for="nav-toggle" class="nav-toggle-label">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </label>
+      </header>
 
-    <main>
-
-   
-
-
-    
-
-    
-    
-    
-    
-    
-        <div class="youtube">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <main>
+        <div class="youtube embed-block">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
         </div>
-    
-    
-    
-        <div class="spotify">
-            <iframe src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6" width="300" height="380"
-                frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+        <div class="spotify embed-block">
+          <iframe
+            title="re:liverecordings Spotify playlist"
+            src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
+            width="100%"
+            height="380"
+            frameborder="0"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            allowtransparency="true"
+          ></iframe>
+          <p class="spotify-fallback" role="status">
+            Having trouble loading the player.
+            <span class="spotify-fallback__hint">
+              If you are on Safari or Brave, allow third-party embeds and make
+              sure your HTTPS certificate is trusted.
+            </span>
+            <a
+              href="https://open.spotify.com/playlist/1x7O9sFDGfKgOf5Ki9ZGO6"
+              target="_blank"
+              rel="noopener"
+              >Open the playlist on Spotify</a
+            >.
+          </p>
         </div>
-    
-    
+      </main>
 
-        
+      <footer>
+        <p class="copyright">
+          <a href="index.html">&copy re:liverecordings</a>
+        </p>
+        <div class="socials">
+          <ul>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/reliverecordings/"
+                target="_blank"
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in" aria-hidden="true"></i
+              ></a>
+            </li>
 
+            <li>
+              <a
+                href="https://www.facebook.com/reliverecordings/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f" aria-hidden="true"></i
+              ></a>
+            </li>
 
-</main>
+            <li>
+              <a
+                href="https://twitter.com/reliverecording"
+                target="_blank"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter" aria-hidden="true"></i
+              ></a>
+            </li>
 
+            <li>
+              <a
+                href="https://www.instagram.com/reliverecordings/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram" aria-hidden="true"></i
+              ></a>
+            </li>
 
-<footer>
-    <p class="copyright"><a href="index.html">&copy re:liverecordings</a></p>
-    <div class="socials">
-        <ul>
-            <li><a href="https://www.linkedin.com/in/reliverecordings/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-        
-
-           <li><a href="https://www.facebook.com/reliverecordings/" target="_blank" aria-label="Facebook"><i
-                    class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-
-
-            <li><a href="https://twitter.com/reliverecording" target="_blank" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-
-
-            <li><a href="https://www.instagram.com/reliverecordings/" target="_blank" aria-label="Instagram"><i
-                    class="fab fa-instagram" aria-hidden="true"></i></a></li>
-
-                    
-            
-            <li><a href="https://reliverecordings.tumblr.com/" target="_blank" aria-label="Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i></a></li>
-        </ul>
+            <li>
+              <a
+                href="https://reliverecordings.tumblr.com/"
+                target="_blank"
+                aria-label="Tumblr"
+                ><i class="fab fa-tumblr" aria-hidden="true"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
-</footer>
-</div>
-<div class="privacy-notice" role="dialog" aria-live="polite" aria-label="Cookie notice">
-    <button class="privacy-notice__close" type="button" aria-label="Dismiss cookie notice">&times;</button>
-    <div class="privacy-notice__icon" aria-hidden="true">
-        <i class="fas fa-cookie-bite"></i>
+    <div
+      class="cookie-toast is-hidden"
+      role="dialog"
+      aria-live="polite"
+      aria-label="Cookie notice"
+    >
+      <p class="cookie-toast__body">
+        We don’t set cookies or trackers right now.
+        <a href="/cookie-policy.html">Learn more</a>.
+      </p>
+      <button
+        type="button"
+        class="cookie-toast__close"
+        aria-label="Dismiss cookie notice"
+      >
+        Dismiss
+      </button>
     </div>
-    <div class="privacy-notice__content">
-        <h2>Cookies &amp; Transparency</h2>
-        <p>This site is required to mention cookies, but we are not running any cookies or trackers right now. There is nothing for you to accept.</p>
-        <p>If that ever changes we will update this notice.</p>
-    </div>
-</div>
-<script>
-    (function () {
-        var notice = document.querySelector('.privacy-notice');
+    <script>
+      (function () {
+        var notice = document.querySelector('.cookie-toast');
         if (!notice) {
-            return;
+          return;
         }
-        var storageKey = 'rlrPrivacyNoticeDismissed-v2';
-        try {
-            if (window.localStorage.getItem(storageKey)) {
-                notice.classList.add('is-hidden');
-                return;
-            }
-        } catch (err) {
-            // localStorage may be unavailable; fail silently so the notice still shows
-        }
+        var closeButton = notice.querySelector('.cookie-toast__close');
+        var storageKey = 'rlrCookieToastDismissed-v1';
 
-        var closeButton = notice.querySelector('.privacy-notice__close');
+        var hide = function () {
+          notice.classList.add('is-hidden');
+        };
+
+        var show = function () {
+          notice.classList.remove('is-hidden');
+        };
+
+        window.addEventListener('load', function () {
+          var dismissed = false;
+          try {
+            dismissed = window.localStorage.getItem(storageKey) === '1';
+          } catch (err) {
+            // ignore storage errors so the notice can still show
+          }
+          if (!dismissed) {
+            show();
+          }
+        });
+
         if (closeButton) {
-            closeButton.addEventListener('click', function () {
-                notice.classList.add('is-hidden');
-                try {
-                    window.localStorage.setItem(storageKey, '1');
-                } catch (err) {
-                    // ignore storage errors so the close action continues to work
-                }
-            });
+          closeButton.addEventListener('click', function () {
+            hide();
+            try {
+              window.localStorage.setItem(storageKey, '1');
+            } catch (err) {
+              // ignore storage errors so dismissal still works
+            }
+          });
         }
-    })();
-</script>
-</body>
 
+        document.addEventListener('keydown', function (evt) {
+          if (evt.key === 'Escape' && !notice.classList.contains('is-hidden')) {
+            hide();
+            try {
+              window.localStorage.setItem(storageKey, '1');
+            } catch (err) {
+              // ignore storage errors
+            }
+          }
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var spotifyFrame = document.querySelector('.spotify iframe');
+        var spotifyFallback = document.querySelector('.spotify-fallback');
+        if (!spotifyFrame || !spotifyFallback) {
+          return;
+        }
+        var isLocal =
+          ['localhost', '127.0.0.1'].indexOf(window.location.hostname) !== -1;
+        var isSecure = window.location.protocol === 'https:';
+
+        // Show fallback by default; hide only once Spotify confirms load.
+        spotifyFallback.hidden = false;
+
+        // If we are not secure (and not on localhost), keep the fallback visible and bail.
+        if (!isSecure && !isLocal) {
+          return;
+        }
+
+        var hideFallback = function () {
+          spotifyFallback.hidden = true;
+        };
+        var showFallback = function () {
+          spotifyFallback.hidden = false;
+        };
+
+        // Give the iframe a few seconds to load; if it doesn't, show the link.
+        var timeout = setTimeout(showFallback, 4000);
+
+        spotifyFrame.addEventListener('load', function () {
+          clearTimeout(timeout);
+          hideFallback();
+        });
+
+        spotifyFrame.addEventListener('error', function () {
+          showFallback();
+        });
+      })();
+    </script>
+  </body>
 </html>
