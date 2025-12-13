@@ -5,20 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
-    <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' https://www.youtube.com https://open.spotify.com https://embed-cdn.spotifycdn.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
-      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-      img-src 'self' data: https://i.ytimg.com https://yt3.ggpht.com https://*.scdn.co https://*.spotifycdn.com;
-      frame-src https://www.youtube.com https://open.spotify.com;
-      connect-src 'self' https://www.youtube.com https://open.spotify.com https://*.spotify.com https://*.spotifycdn.com;
-      media-src 'self' https://*.scdn.co;
-    ">
-    
-    <!-- Security: X-Frame-Options (meta fallback) -->
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <!-- Security headers are set via Netlify HTTP headers (netlify.toml) -->
     
     <title>re:liverecordings</title>
     
@@ -158,8 +145,8 @@
             <iframe
               title="re:liverecordings YouTube playlist"
               width="560"
-              height="315"
-              src="https://www.youtube.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
+              height="380"
+              src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
