@@ -276,14 +276,23 @@ a:hover .logo-hover {
   border-radius: 12px;
 }
 
+.spotify {
+  position: relative; /* For absolute positioning of fallback */
+}
+
 .spotify-fallback {
   color: var(--color-text);
-  margin-top: 0.5rem;
   font-size: 0.9rem;
   text-align: center;
-  visibility: hidden; /* Hidden by default to prevent CLS */
-  height: 0;
-  overflow: hidden;
+  position: absolute; /* Remove from layout flow to prevent CLS */
+  bottom: -2.5rem;
+  left: 0;
+  right: 0;
+  margin: 0;
+}
+
+.spotify-fallback[hidden] {
+  display: none;
 }
 
 .spotify-fallback a {
