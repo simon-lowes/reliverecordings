@@ -54,8 +54,8 @@ header {
   right: 0;
   margin: 0;
   padding-top: 0.5rem;
-  min-height: 250px; /* Increased to account for logo + margins */
-  height: 250px; /* Fixed height to prevent CLS */
+  min-height: 300px; /* Logo (200px) + margins + nav */
+  height: auto; /* Allow header to grow */
   contain: layout; /* Prevent internal changes from affecting layout */
 }
 
@@ -492,6 +492,8 @@ ul {
     text-align: center;
     position: relative;
     z-index: 10;
+    margin-top: 1rem;
+    padding: 0.5rem 0;
   }
 
   nav ul {
