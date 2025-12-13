@@ -479,17 +479,19 @@ ul {
   }
 
   header {
-    display: block;
-    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   nav {
     all: unset;
-    grid-column: 2 / 4;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative;
+    z-index: 10;
   }
 
   nav ul {
@@ -499,15 +501,21 @@ ul {
 
   nav li {
     text-align: center;
-    margin-left: 2em;
-    margin-bottom: 1em;
-    margin: 2em;
-    align-content: center;
+    margin: 0 1.5em;
   }
 
   nav a {
     opacity: 1;
     position: relative;
+    font-weight: 900;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  nav a:hover {
+    color: #e91d26;
   }
 
   nav a::before {
