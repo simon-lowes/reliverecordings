@@ -6,6 +6,48 @@
   }
 })();
 
+// Embed Facade Pattern - Load embeds only on user interaction
+// This eliminates third-party cookies until the user clicks to play
+(function () {
+  document.querySelectorAll('.embed-facade').forEach(function (facade) {
+    facade.addEventListener('click', function () {
+      var embedSrc = facade.getAttribute('data-embed-src');
+      var parent = facade.parentElement;
+
+      if (!embedSrc || !parent) return;
+
+      // Create iframe
+      var iframe = document.createElement('iframe');
+      iframe.src = embedSrc;
+      iframe.width = '560';
+      iframe.height = '380';
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'lazy');
+
+      // YouTube-specific attributes
+      if (parent.classList.contains('youtube')) {
+        iframe.title = 're:liverecordings YouTube playlist';
+        iframe.allow =
+          'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      }
+
+      // Spotify-specific attributes
+      if (parent.classList.contains('spotify')) {
+        iframe.title = 're:liverecordings Spotify playlist';
+        iframe.allow =
+          'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+        iframe.setAttribute('allowtransparency', 'true');
+      }
+
+      // Replace facade with iframe
+      parent.classList.add('embed-block--active');
+      parent.appendChild(iframe);
+      facade.remove();
+    });
+  });
+})();
+
 // Cookie toast functionality
 (function () {
   var notice = document.querySelector('.cookie-toast');
@@ -55,42 +97,6 @@
         // ignore storage errors
       }
     }
-  });
-})();
-
-// Spotify fallback functionality
-(function () {
-  var spotifyFrame = document.querySelector('.spotify iframe');
-  var spotifyFallback = document.querySelector('.spotify-fallback');
-  if (!spotifyFrame || !spotifyFallback) {
-    return;
-  }
-  var isLocal =
-    ['localhost', '127.0.0.1'].indexOf(window.location.hostname) !== -1;
-  var isSecure = window.location.protocol === 'https:';
-
-  // Fallback starts hidden (via HTML attribute); only show if iframe fails.
-
-  // If we are not secure (and not on localhost), show the fallback.
-  if (!isSecure && !isLocal) {
-    spotifyFallback.hidden = false;
-    return;
-  }
-
-  var showFallback = function () {
-    spotifyFallback.hidden = false;
-  };
-
-  // Give the iframe a few seconds to load; if it doesn't, show the link.
-  var timeout = setTimeout(showFallback, 4000);
-
-  spotifyFrame.addEventListener('load', function () {
-    clearTimeout(timeout);
-    // Keep fallback hidden on successful load
-  });
-
-  spotifyFrame.addEventListener('error', function () {
-    showFallback();
   });
 })();
 

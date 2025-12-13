@@ -288,33 +288,7 @@ a:hover .logo-hover {
 }
 
 .spotify {
-  position: relative; /* For absolute positioning of fallback */
-}
-
-.spotify-fallback {
-  color: var(--color-text);
-  font-size: 0.9rem;
-  text-align: center;
-  position: absolute; /* Remove from layout flow to prevent CLS */
-  bottom: -2.5rem;
-  left: 0;
-  right: 0;
-  margin: 0;
-}
-
-.spotify-fallback[hidden] {
-  display: none;
-}
-
-.spotify-fallback a {
-  color: var(--color-accent);
-}
-
-.spotify-fallback__hint {
-  display: block;
-  margin: 0.35rem 0 0.4rem;
-  color: var(--color-muted);
-  font-size: 0.85rem;
+  position: relative;
 }
 
 .embed-block {
@@ -570,4 +544,96 @@ ul {
 
 .skip-link:focus {
   top: 0;
+}
+
+/* Embed Facade Pattern - eliminates third-party cookies until user interaction */
+.embed-facade {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 380px;
+  border: 0;
+  border-radius: 12px;
+  background: #1a1a1a;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.embed-facade:hover {
+  transform: scale(1.01);
+}
+
+.embed-facade:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.embed-facade__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.embed-facade__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.embed-facade:hover .embed-facade__play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.youtube-facade .embed-facade__play svg {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* Spotify Facade */
+.spotify-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #121212 100%);
+  border-radius: 12px;
+}
+
+.spotify-logo {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.spotify-placeholder__text {
+  color: #b3b3b3;
+  font-size: 0.95rem;
+}
+
+.spotify-play {
+  font-size: 2.5rem;
+  color: #1ed760;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Active embed iframe (shown after clicking facade) */
+.embed-block iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+  border: 0;
+  border-radius: 12px;
+}
+
+.embed-block--active .embed-facade {
+  display: none;
 }
