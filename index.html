@@ -1,31 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link href="images/favicon.jpg" rel="shortcut icon" type="image/png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.youtube.com https://open.spotify.com https://embed-cdn.spotifycdn.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+      img-src 'self' data: https://i.ytimg.com https://yt3.ggpht.com https://*.scdn.co https://*.spotifycdn.com;
+      frame-src https://www.youtube.com https://open.spotify.com;
+      connect-src 'self' https://www.youtube.com https://open.spotify.com https://*.spotify.com https://*.spotifycdn.com;
+      media-src 'self' https://*.scdn.co;
+    ">
+    
+    <!-- Security: X-Frame-Options (meta fallback) -->
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    
+    <title>re:liverecordings</title>
+    
+    <!-- Preconnect to critical origins only -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload LCP image -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="images/optimized/logo-white-600.webp"
+    />
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <!-- Google Fonts with display=swap -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="preconnect" href="https://www.youtube.com" />
-    <link rel="preconnect" href="https://i.ytimg.com" />
-    <link rel="preconnect" href="https://open.spotify.com" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://www.youtube.com" />
-    <link rel="dns-prefetch" href="https://i.ytimg.com" />
-    <link rel="dns-prefetch" href="https://open.spotify.com" />
-    <link rel="stylesheet" href="css/style.css" />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      />
+    </noscript>
+    
+    <!-- Defer Font Awesome (not critical for initial render) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
+      media="print"
+      onload="this.media='all'"
     />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      />
+    </noscript>
+    
+    <link href="images/favicon.jpg" rel="shortcut icon" type="image/png" />
     <meta
       name="description"
       content="re:liverecordings – live event recording and production. Watch the latest sets and playlists."
@@ -52,7 +94,6 @@
       name="twitter:image"
       content="https://reliverecordings.co.uk/images/ReLiveLogoRED%20TRANSPARENT.png"
     />
-    <title>re:liverecordings</title>
   </head>
 
   <body>
@@ -60,16 +101,28 @@
     <div class="background-container">
       <header>
         <a href="index.html">
-          <img
-            src="images/ReLiveLogoWHITE TRANSPARENT.png"
-            class="logo"
-            alt="re:liverecordings"
-          />
-          <img
-            src="images/ReLiveLogoRED TRANSPARENT.png"
-            class="logo-hover"
-            alt="re:liverecordings hover"
-          />
+          <picture>
+            <source srcset="images/optimized/logo-white-600.webp" type="image/webp">
+            <img
+              src="images/optimized/logo-white-600.png"
+              class="logo"
+              alt="re:liverecordings"
+              width="390"
+              height="600"
+              fetchpriority="high"
+            />
+          </picture>
+          <picture>
+            <source srcset="images/optimized/logo-red-600.webp" type="image/webp">
+            <img
+              src="images/optimized/logo-red-600.png"
+              class="logo-hover"
+              alt="re:liverecordings hover"
+              width="390"
+              height="600"
+              loading="lazy"
+            />
+          </picture>
         </a>
 
         <input
@@ -100,30 +153,33 @@
       </header>
 
       <main id="main-content">
-        <div class="youtube embed-block">
-          <iframe
-            title="re:liverecordings YouTube playlist"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-        </div>
+        <div class="embed-container">
+          <div class="youtube embed-block">
+            <iframe
+              title="re:liverecordings YouTube playlist"
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              style="aspect-ratio: 16 / 9;"
+            ></iframe>
+          </div>
 
-        <div class="spotify embed-block">
-          <iframe
-            title="re:liverecordings Spotify playlist"
-            src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
-            width="100%"
-            height="380"
-            frameborder="0"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            allowtransparency="true"
-          ></iframe>
+          <div class="spotify embed-block">
+            <iframe
+              title="re:liverecordings Spotify playlist"
+              src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
+              width="560"
+              height="380"
+              frameborder="0"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowtransparency="true"
+              style="aspect-ratio: 560 / 380;"
+            ></iframe>
           <p class="spotify-fallback" role="status">
             Having trouble loading the player.
             <span class="spotify-fallback__hint">
@@ -137,9 +193,8 @@
               >Open the playlist on Spotify</a
             >.
           </p>
+          </div>
         </div>
-      </main>
-
       <footer>
         <p class="copyright">
           <a href="index.html">&copy re:liverecordings</a>
@@ -195,7 +250,7 @@
         </div>
       </footer>
     </div>
-    <div>>>>>>></div>
+    <div
       class="cookie-toast is-hidden"
       role="dialog"
       aria-live="polite"
@@ -302,6 +357,49 @@
         spotifyFrame.addEventListener('error', function () {
           showFallback();
         });
+      })();
+    </script>
+    <script>
+      (function() {
+        // Lazy-load background images after page load to prevent CLS
+        var bgContainer = document.querySelector('.background-container');
+        if (!bgContainer) return;
+
+        var images = [
+          'images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp',
+          'images/images_50/Sub_Focus_Lazers_03_50.webp',
+          'images/images_50/Sub_Focus_Opening_Jib_Shot50.webp',
+          'images/images_50/FFD_Venue_Wide_50.webp',
+          'images/images_50/FFD_Hands_02_50.webp'
+        ];
+
+        var currentIndex = 0;
+        var imagesLoaded = 0;
+        var loadedImages = [];
+
+        // Preload images after initial page load
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            images.forEach(function(src) {
+              var img = new Image();
+              img.onload = function() {
+                loadedImages.push(src);
+                imagesLoaded++;
+                if (imagesLoaded === images.length) {
+                  startAnimation();
+                }
+              };
+              img.src = src;
+            });
+          }, 1000); // Delay preloading by 1 second to prioritize critical content
+        });
+
+        function startAnimation() {
+          setInterval(function() {
+            currentIndex = (currentIndex + 1) % loadedImages.length;
+            bgContainer.style.backgroundImage = 'url(' + loadedImages[currentIndex] + ')';
+          }, 9000); // 45s / 5 images = 9s per image
+        }
       })();
     </script>
   </body>

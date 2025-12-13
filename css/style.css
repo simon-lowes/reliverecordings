@@ -23,33 +23,13 @@ body {
   text-align: center;
   height: 100%;
   width: 100%;
-  background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png);
+  min-height: 100vh;
   background-color: #000;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  animation: animate 45s steps(1, end) infinite;
-}
-
-@keyframes animate {
-  0% {
-    background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png);
-  }
-  20% {
-    background-image: url(../images/images_50/Sub_Focus_Lazers_03_50.png);
-  }
-  40% {
-    background-image: url(../images/images_50/Sub_Focus_Opening_Jib_Shot50.png);
-  }
-  60% {
-    background-image: url(../images/images_50/FFD_Venue_Wide_50.png);
-  }
-  80% {
-    background-image: url(../images/images_50/FFD_Hands_02_50.png);
-  }
-  100% {
-    background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png);
-  }
+  /* Only load the first image initially */
+  background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp);
 }
 
 body {
@@ -63,12 +43,16 @@ body {
 }
 
 header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   position: relative;
   z-index: 999;
   left: 0;
   right: 0;
   margin: 0;
+  padding-top: 0.5rem;
 }
 
 nav {
@@ -196,7 +180,7 @@ img {
 }
 
 main {
-  max-width: 900px;
+  max-width: 95vw;
   width: 100%;
   height: auto;
   margin: auto;
@@ -228,19 +212,26 @@ a:link {
 }
 
 a .logo {
-  height: 28vh;
+  aspect-ratio: 390 / 600; /* Optimized logo dimensions */
+  max-height: 28vh;
   margin: 1em;
-  /* display: inline-block; */
-}
-
-a:hover .logo {
-  display: none;
+  width: auto;
+  height: auto;
+  transition: opacity 0.5s ease;
 }
 
 a .logo-hover {
   display: none;
-  height: 28vh;
+  aspect-ratio: 390 / 600; /* Optimized logo dimensions */
+  max-height: 28vh;
   margin: 1em;
+  width: auto;
+  height: auto;
+  transition: opacity 0.5s ease;
+}
+
+a:hover .logo {
+  display: none;
 }
 
 a:hover .logo-hover {
@@ -250,11 +241,10 @@ a:hover .logo-hover {
 .youtube iframe {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
+  height: 380px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 12px;
 }
 
 .spotify {
@@ -267,10 +257,7 @@ a:hover .logo-hover {
 
 .spotify iframe {
   width: 100%;
-  max-width: 900px;
-  min-height: 380px;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  height: 380px;
   border: 0;
   border-radius: 12px;
 }
@@ -296,6 +283,27 @@ a:hover .logo-hover {
 .embed-block {
   width: 100%;
   margin: 0 auto;
+}
+
+.embed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 95vw;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .embed-container {
+    flex-direction: row;
+    max-width: 90vw;
+    gap: 2rem;
+  }
+
+  .embed-container .embed-block {
+    flex: 1;
+  }
 }
 
 .cookie-toast {
