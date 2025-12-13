@@ -126,42 +126,29 @@
       <main id="main-content">
         <div class="embed-container">
           <div class="youtube embed-block">
-            <button 
-              type="button" 
-              class="embed-facade youtube-facade" 
-              aria-label="Play YouTube playlist"
-              data-embed-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK&autoplay=1"
-            >
-              <picture>
-                <source srcset="images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp" type="image/webp">
-                <img 
-                  src="images/images_50/Sub_Focus_Blue_Lightbeams_02_50.png" 
-                  alt="re:liverecordings YouTube playlist - click to play"
-                  width="560"
-                  height="380"
-                  loading="lazy"
-                  class="embed-facade__img"
-                />
-              </picture>
-              <span class="embed-facade__play" aria-hidden="true">
-                <svg viewBox="0 0 68 48" width="68" height="48"><path fill="#f00" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/><path fill="#fff" d="M45 24 27 14v20"/></svg>
-              </span>
-            </button>
+            <iframe
+              title="re:liverecordings YouTube playlist"
+              width="560"
+              height="380"
+              src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
           </div>
 
           <div class="spotify embed-block">
-            <button 
-              type="button" 
-              class="embed-facade spotify-facade" 
-              aria-label="Open Spotify playlist"
-              data-embed-src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
-            >
-              <div class="embed-facade__placeholder spotify-placeholder">
-                <svg class="spotify-logo" viewBox="0 0 496 512" width="80" height="80" aria-hidden="true"><path fill="#1ed760" d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"/></svg>
-                <span class="spotify-placeholder__text">Click to load Spotify playlist</span>
-              </div>
-              <span class="embed-facade__play spotify-play" aria-hidden="true">▶</span>
-            </button>
+            <iframe
+              title="re:liverecordings Spotify playlist"
+              src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
+              width="560"
+              height="380"
+              frameborder="0"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowtransparency="true"
+            ></iframe>
           </div>
         </div>
       <footer>
@@ -230,8 +217,8 @@
       aria-label="Cookie notice"
     >
       <p class="cookie-toast__body">
-        This site uses essential cookies only. Third-party cookies from YouTube
-        and Spotify load only when you click to play.
+        This site uses essential cookies and third-party cookies from YouTube
+        and Spotify embeds. No tracking cookies are set by us.
       </p>
       <button
         type="button"
