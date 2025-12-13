@@ -54,7 +54,7 @@ header {
   right: 0;
   margin: 0;
   padding-top: 0.5rem;
-  min-height: 32vh; /* Reserve space for logo to prevent CLS */
+  min-height: 220px; /* Fixed pixel height to prevent CLS */
 }
 
 nav {
@@ -214,29 +214,34 @@ a:link {
   contain: layout;
 }
 
+header > a {
+  position: relative;
+  display: inline-block;
+}
+
 a .logo {
   aspect-ratio: 390 / 600; /* Optimized logo dimensions */
-  max-height: 28vh;
+  max-height: 200px; /* Fixed height to prevent CLS */
   margin: 1em;
   width: auto;
   height: auto;
 }
 
 a .logo-hover {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
   aspect-ratio: 390 / 600; /* Optimized logo dimensions */
-  max-height: 28vh;
+  max-height: 200px; /* Fixed height to prevent CLS */
   margin: 1em;
   width: auto;
   height: auto;
-}
-
-a:hover .logo {
-  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 a:hover .logo-hover {
-  display: inline-block;
+  opacity: 1;
 }
 
 .youtube iframe {
@@ -249,7 +254,7 @@ a:hover .logo-hover {
 }
 
 .youtube {
-  min-height: 380px; /* Reserve space to prevent CLS */
+  height: 380px; /* Fixed height to prevent CLS */
   contain: layout;
 }
 
@@ -259,8 +264,9 @@ a:hover .logo-hover {
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  min-height: 380px; /* Reserve space to prevent CLS */
+  height: 380px; /* Fixed height to prevent CLS */
   contain: layout;
+  overflow: hidden; /* Prevent fallback text from causing shift */
 }
 
 .spotify iframe {
@@ -275,6 +281,9 @@ a:hover .logo-hover {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   text-align: center;
+  visibility: hidden; /* Hidden by default to prevent CLS */
+  height: 0;
+  overflow: hidden;
 }
 
 .spotify-fallback a {
