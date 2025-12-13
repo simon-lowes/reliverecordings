@@ -417,6 +417,14 @@ button:focus-visible {
   background-color: #fff;
 } */
 
+/* Social icon SVGs */
+.social-icon {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
 .socials ul li {
   display: inline-block;
   text-align: center;
