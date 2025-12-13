@@ -6,48 +6,6 @@
   }
 })();
 
-// Embed Facade Pattern - Load embeds only on user interaction
-// This eliminates third-party cookies until the user clicks to play
-(function () {
-  document.querySelectorAll('.embed-facade').forEach(function (facade) {
-    facade.addEventListener('click', function () {
-      var embedSrc = facade.getAttribute('data-embed-src');
-      var parent = facade.parentElement;
-
-      if (!embedSrc || !parent) return;
-
-      // Create iframe
-      var iframe = document.createElement('iframe');
-      iframe.src = embedSrc;
-      iframe.width = '560';
-      iframe.height = '380';
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute('loading', 'lazy');
-
-      // YouTube-specific attributes
-      if (parent.classList.contains('youtube')) {
-        iframe.title = 're:liverecordings YouTube playlist';
-        iframe.allow =
-          'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
-      }
-
-      // Spotify-specific attributes
-      if (parent.classList.contains('spotify')) {
-        iframe.title = 're:liverecordings Spotify playlist';
-        iframe.allow =
-          'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-        iframe.setAttribute('allowtransparency', 'true');
-      }
-
-      // Replace facade with iframe
-      parent.classList.add('embed-block--active');
-      parent.appendChild(iframe);
-      facade.remove();
-    });
-  });
-})();
-
 // Cookie toast functionality
 (function () {
   var notice = document.querySelector('.cookie-toast');
