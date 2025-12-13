@@ -54,7 +54,9 @@ header {
   right: 0;
   margin: 0;
   padding-top: 0.5rem;
-  min-height: 220px; /* Fixed pixel height to prevent CLS */
+  min-height: 250px; /* Increased to account for logo + margins */
+  height: 250px; /* Fixed height to prevent CLS */
+  contain: layout; /* Prevent internal changes from affecting layout */
 }
 
 nav {
@@ -211,20 +213,24 @@ a:link {
 
 .logo {
   text-align: center;
-  contain: layout;
+  contain: layout size; /* Add size containment to prevent CLS */
 }
 
 header > a {
   position: relative;
   display: inline-block;
+  /* Reserve exact space for logo to prevent CLS */
+  width: 130px;
+  height: 200px;
 }
 
 a .logo {
   aspect-ratio: 390 / 600; /* Optimized logo dimensions */
   max-height: 200px; /* Fixed height to prevent CLS */
+  width: 130px; /* Explicit width based on aspect ratio */
+  height: 200px; /* Explicit height */
   margin: 1em;
-  width: auto;
-  height: auto;
+  object-fit: contain;
 }
 
 a .logo-hover {
@@ -233,9 +239,10 @@ a .logo-hover {
   left: 0;
   aspect-ratio: 390 / 600; /* Optimized logo dimensions */
   max-height: 200px; /* Fixed height to prevent CLS */
+  width: 130px; /* Explicit width based on aspect ratio */
+  height: 200px; /* Explicit height */
   margin: 1em;
-  width: auto;
-  height: auto;
+  object-fit: contain;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
@@ -254,8 +261,10 @@ a:hover .logo-hover {
 }
 
 .youtube {
+  min-height: 380px; /* Use min-height for robustness */
   height: 380px; /* Fixed height to prevent CLS */
-  contain: layout;
+  contain: layout size style; /* Full containment */
+  content-visibility: auto; /* Optimize rendering */
 }
 
 .spotify {
@@ -264,8 +273,10 @@ a:hover .logo-hover {
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  min-height: 380px; /* Use min-height for robustness */
   height: 380px; /* Fixed height to prevent CLS */
-  contain: layout;
+  contain: layout size style; /* Full containment */
+  content-visibility: auto; /* Optimize rendering */
   overflow: hidden; /* Prevent fallback text from causing shift */
 }
 

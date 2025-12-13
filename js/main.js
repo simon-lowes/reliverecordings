@@ -1,3 +1,11 @@
+// Activate preloaded Google Fonts (non-render-blocking)
+(function () {
+  var fontLink = document.getElementById('google-fonts-preload');
+  if (fontLink) {
+    fontLink.rel = 'stylesheet';
+  }
+})();
+
 // Cookie toast functionality
 (function () {
   var notice = document.querySelector('.cookie-toast');
