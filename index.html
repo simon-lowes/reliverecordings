@@ -24,11 +24,19 @@
     <!-- Critical CSS -->
     <link rel="stylesheet" href="css/style.css" />
     
-    <!-- Google Fonts with display=swap -->
+    <!-- Google Fonts - preload for async loading (activated via JS) -->
     <link
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      id="google-fonts-preload"
       href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      />
+    </noscript>
     
     <link href="images/favicon.jpg" rel="icon" type="image/jpeg" />
     <meta
