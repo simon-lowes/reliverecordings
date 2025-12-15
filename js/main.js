@@ -72,9 +72,9 @@
     'images/images_50/FFD_Hands_02_50.webp',
   ];
 
-  var currentIndex = 0;
-  var imagesLoaded = 0;
   var loadedImages = [];
+  var totalToLoad = images.length;
+  var loadAttempts = 0;
 
   // Preload images after initial page load
   window.addEventListener('load', function () {
@@ -83,17 +83,28 @@
         var img = new Image();
         img.onload = function () {
           loadedImages.push(src);
-          imagesLoaded++;
-          if (imagesLoaded === images.length) {
-            startAnimation();
-          }
+          loadAttempts++;
+          checkComplete();
+        };
+        img.onerror = function () {
+          // Gracefully handle missing images - just skip them
+          loadAttempts++;
+          checkComplete();
         };
         img.src = src;
       });
     }, 1000); // Delay preloading by 1 second to prioritize critical content
   });
 
+  function checkComplete() {
+    // Start animation when all load attempts are done (success or failure)
+    if (loadAttempts === totalToLoad && loadedImages.length > 0) {
+      startAnimation();
+    }
+  }
+
   function startAnimation() {
+    var currentIndex = 0;
     setInterval(function () {
       currentIndex = (currentIndex + 1) % loadedImages.length;
       bgContainer.style.backgroundImage =
