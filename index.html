@@ -9,9 +9,11 @@
     
     <title>re:liverecordings</title>
     
-    <!-- Preconnect to critical origins only -->
+    <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+    <link rel="preconnect" href="https://open.spotify.com" />
     
     <!-- Preload LCP image -->
     <link
@@ -38,10 +40,10 @@
       />
     </noscript>
     
-    <link href="images/favicon.jpg" rel="icon" type="image/jpeg" />
+    <link href="images/relivestamp.jpg" rel="icon" type="image/jpeg" />
     <meta
       name="description"
-      content="re:liverecordings – live event recording and production. Watch the latest sets and playlists."
+      content="re:liverecordings – professional live event recording and production services. Watch curated YouTube sets and Spotify playlists from live music events."
     />
     <link rel="canonical" href="https://reliverecordings.co.uk/" />
     <meta property="og:type" content="website" />
@@ -65,6 +67,30 @@
       name="twitter:image"
       content="https://reliverecordings.co.uk/images/ReLiveLogoRED%20TRANSPARENT.png"
     />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "re:liverecordings",
+      "url": "https://reliverecordings.co.uk",
+      "logo": "https://reliverecordings.co.uk/images/ReLiveLogoRED%20TRANSPARENT.png",
+      "description": "Professional live event recording and production services.",
+      "sameAs": [
+        "https://www.linkedin.com/in/reliverecordings/",
+        "https://www.facebook.com/reliverecordings/",
+        "https://x.com/reliverecording",
+        "https://www.instagram.com/reliverecordings/",
+        "https://reliverecordings.tumblr.com/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "rob@reliverecordings.co.uk",
+        "contactType": "customer service"
+      }
+    }
+    </script>
   </head>
 
   <body>
