@@ -122,14 +122,19 @@
           </picture>
         </a>
 
-        <input
-          type="checkbox"
+        <button
+          type="button"
           id="nav-toggle"
           class="nav-toggle"
-          aria-label="Toggle navigation"
-        />
+          aria-expanded="false"
+          aria-controls="main-navigation"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="sr-only">Toggle navigation menu</span>
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
 
-        <nav>
+        <nav id="main-navigation" aria-label="Main navigation">
           <ul>
             <li><a href="index.html">Home</a></li>
             <li>
@@ -143,10 +148,6 @@
             <li><a href="mailto:rob@reliverecordings.co.uk">Contact</a></li>
           </ul>
         </nav>
-        <label for="nav-toggle" class="nav-toggle-label">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="nav-toggle-bars" aria-hidden="true"></span>
-        </label>
       </header>
 
       <main id="main-content">
