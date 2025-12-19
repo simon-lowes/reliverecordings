@@ -30,7 +30,7 @@
         if (firstLink) {
           firstLink.focus();
         }
-      }, 150); // Matches nav transition duration (200ms) minus small buffer
+      }, 150); // Matches nav link opacity transition (150ms)
     }
   });
 
