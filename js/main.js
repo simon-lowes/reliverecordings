@@ -1,4 +1,5 @@
 // Activate preloaded Google Fonts (non-render-blocking)
+// Note: Fonts are preloaded in HTML and activated here for optimal performance
 (function () {
   var fontLink = document.getElementById('google-fonts-preload');
   if (fontLink) {
