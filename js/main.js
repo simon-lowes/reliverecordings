@@ -16,21 +16,26 @@
     return;
   }
 
+  // Helper function to cancel pending focus timeout
+  function cancelFocusTimeout() {
+    if (focusTimeout) {
+      clearTimeout(focusTimeout);
+      focusTimeout = null;
+    }
+  }
+
   navToggle.addEventListener('click', function () {
     var isOpen = nav.classList.contains('nav-open');
     
     if (isOpen) {
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
-      // Cancel pending focus if menu is being closed
-      if (focusTimeout) {
-        clearTimeout(focusTimeout);
-        focusTimeout = null;
-      }
+      cancelFocusTimeout();
     } else {
       nav.classList.add('nav-open');
       navToggle.setAttribute('aria-expanded', 'true');
-      // Wait for CSS transition to complete before focusing first link
+      // Wait for link opacity transition to complete (150ms opacity + 100ms delay = 250ms)
+      // Using 350ms to account for nav transform (200ms) overlapping with link transition
       focusTimeout = setTimeout(function() {
         // Check menu is still open before focusing
         if (nav.classList.contains('nav-open')) {
@@ -40,7 +45,7 @@
           }
         }
         focusTimeout = null;
-      }, 350); // Matches full navigation animation duration (~350ms)
+      }, 350);
     }
   });
 
@@ -50,11 +55,7 @@
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.focus();
-      // Cancel pending focus
-      if (focusTimeout) {
-        clearTimeout(focusTimeout);
-        focusTimeout = null;
-      }
+      cancelFocusTimeout();
     }
   });
 
@@ -66,11 +67,7 @@
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.focus();
-      // Cancel pending focus
-      if (focusTimeout) {
-        clearTimeout(focusTimeout);
-        focusTimeout = null;
-      }
+      cancelFocusTimeout();
     }
   });
 
@@ -80,11 +77,7 @@
     link.addEventListener('click', function() {
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
-      // Cancel pending focus
-      if (focusTimeout) {
-        clearTimeout(focusTimeout);
-        focusTimeout = null;
-      }
+      cancelFocusTimeout();
     });
   });
 })();
