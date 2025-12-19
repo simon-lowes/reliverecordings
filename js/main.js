@@ -24,13 +24,13 @@
     } else {
       nav.classList.add('nav-open');
       navToggle.setAttribute('aria-expanded', 'true');
-      // Focus first navigation link when menu opens
+      // Wait for CSS transition to complete before focusing first link
       setTimeout(function() {
         var firstLink = nav.querySelector('a');
         if (firstLink) {
           firstLink.focus();
         }
-      }, 150);
+      }, 150); // Matches nav transition duration (200ms) minus small buffer
     }
   });
 
