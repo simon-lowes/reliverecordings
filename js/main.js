@@ -1,9 +1,86 @@
 // Activate preloaded Google Fonts (non-render-blocking)
+// Note: Fonts are preloaded in HTML and activated here for optimal performance
 (function () {
   var fontLink = document.getElementById('google-fonts-preload');
   if (fontLink) {
     fontLink.rel = 'stylesheet';
   }
+})();
+
+// Mobile navigation toggle
+(function () {
+  var navToggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-navigation');
+  var focusTimeout = null;
+  
+  if (!navToggle || !nav) {
+    return;
+  }
+
+  // Helper function to cancel pending focus timeout
+  function cancelFocusTimeout() {
+    if (focusTimeout) {
+      clearTimeout(focusTimeout);
+      focusTimeout = null;
+    }
+  }
+
+  navToggle.addEventListener('click', function () {
+    var isOpen = nav.classList.contains('nav-open');
+    
+    if (isOpen) {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      cancelFocusTimeout();
+    } else {
+      nav.classList.add('nav-open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      // Wait for link opacity transition to complete (250ms duration + 100ms delay = 350ms)
+      // Nav transform (200ms) completes before link transition finishes
+      focusTimeout = setTimeout(function() {
+        // Check menu is still open before focusing
+        if (nav.classList.contains('nav-open')) {
+          var firstLink = nav.querySelector('a');
+          if (firstLink) {
+            firstLink.focus();
+          }
+        }
+        focusTimeout = null;
+      }, 350);
+    }
+  });
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape' && nav.classList.contains('nav-open')) {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+      cancelFocusTimeout();
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function (evt) {
+    if (nav.classList.contains('nav-open') && 
+        !nav.contains(evt.target) && 
+        !navToggle.contains(evt.target)) {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+      cancelFocusTimeout();
+    }
+  });
+
+  // Close menu when navigating to a link
+  var navLinks = nav.querySelectorAll('a');
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      cancelFocusTimeout();
+    });
+  });
 })();
 
 // Cookie toast functionality
