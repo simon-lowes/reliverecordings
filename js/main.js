@@ -34,8 +34,8 @@
     } else {
       nav.classList.add('nav-open');
       navToggle.setAttribute('aria-expanded', 'true');
-      // Wait for link opacity transition to complete (150ms opacity + 100ms delay = 250ms)
-      // Using 350ms to account for nav transform (200ms) overlapping with link transition
+      // Wait for link opacity transition to complete (250ms duration + 100ms delay = 350ms)
+      // Nav transform (200ms) completes before link transition finishes
       focusTimeout = setTimeout(function() {
         // Check menu is still open before focusing
         if (nav.classList.contains('nav-open')) {
