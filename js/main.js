@@ -10,6 +10,7 @@
 (function () {
   var navToggle = document.getElementById('nav-toggle');
   var nav = document.getElementById('main-navigation');
+  var focusTimeout = null;
   
   if (!navToggle || !nav) {
     return;
@@ -21,16 +22,25 @@
     if (isOpen) {
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
+      // Cancel pending focus if menu is being closed
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+        focusTimeout = null;
+      }
     } else {
       nav.classList.add('nav-open');
       navToggle.setAttribute('aria-expanded', 'true');
       // Wait for CSS transition to complete before focusing first link
-      setTimeout(function() {
-        var firstLink = nav.querySelector('a');
-        if (firstLink) {
-          firstLink.focus();
+      focusTimeout = setTimeout(function() {
+        // Check menu is still open before focusing
+        if (nav.classList.contains('nav-open')) {
+          var firstLink = nav.querySelector('a');
+          if (firstLink) {
+            firstLink.focus();
+          }
         }
-      }, 150); // Matches nav link opacity transition (150ms)
+        focusTimeout = null;
+      }, 350); // Matches full navigation animation duration (~350ms)
     }
   });
 
@@ -40,6 +50,11 @@
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.focus();
+      // Cancel pending focus
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+        focusTimeout = null;
+      }
     }
   });
 
@@ -50,6 +65,12 @@
         !navToggle.contains(evt.target)) {
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+      // Cancel pending focus
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+        focusTimeout = null;
+      }
     }
   });
 
@@ -59,6 +80,11 @@
     link.addEventListener('click', function() {
       nav.classList.remove('nav-open');
       navToggle.setAttribute('aria-expanded', 'false');
+      // Cancel pending focus
+      if (focusTimeout) {
+        clearTimeout(focusTimeout);
+        focusTimeout = null;
+      }
     });
   });
 })();

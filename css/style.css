@@ -149,7 +149,7 @@ nav.nav-open a {
   width: 2em;
   border-radius: 2px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .nav-toggle .nav-toggle-bars::before,
@@ -573,7 +573,7 @@ ul {
 
   a .logo,
   a .logo-hover {
-    max-height: 120px;
+    max-height: 100%;
   }
 }
 
