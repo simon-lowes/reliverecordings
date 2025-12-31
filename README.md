@@ -3,7 +3,7 @@
 **Professional live event recording and production services**
 
 🌐 **Website**: [reliverecordings.com](https://reliverecordings.com)  
-📧 **Contact**: rob@reliverecordings.com
+📧 **Contact**: rob@reliverecordings.co.uk
 
 ## About
 
