@@ -222,6 +222,27 @@ describe('Cookie Toast', () => {
 });
 
 describe('Background Image Rotation', () => {
+  // Heap's algorithm for generating permutations (same as in main.js)
+  const generatePermutations = (arr) => {
+    const result = [];
+    const heapPermute = (n, current) => {
+      if (n === 1) {
+        result.push([...current]);
+        return;
+      }
+      for (let i = 0; i < n; i++) {
+        heapPermute(n - 1, current);
+        if (n % 2 === 0) {
+          [current[i], current[n - 1]] = [current[n - 1], current[i]];
+        } else {
+          [current[0], current[n - 1]] = [current[n - 1], current[0]];
+        }
+      }
+    };
+    heapPermute(arr.length, [...arr]);
+    return result;
+  };
+
   test('should filter out failed images from rotation', () => {
     const images = [
       'images/image1.webp',
@@ -249,19 +270,83 @@ describe('Background Image Rotation', () => {
     expect(loadedImages).not.toContain('images/image2.webp');
   });
 
-  test('should cycle through images correctly', () => {
-    const loadedImages = ['img1.webp', 'img2.webp', 'img3.webp'];
-    let currentIndex = 0;
+  test('should generate correct number of permutations', () => {
+    const images = ['A', 'B', 'C'];
+    const perms = generatePermutations(images);
 
-    // Simulate one rotation
-    currentIndex = (currentIndex + 1) % loadedImages.length;
-    expect(currentIndex).toBe(1);
+    // 3! = 6 permutations
+    expect(perms).toHaveLength(6);
+  });
 
-    currentIndex = (currentIndex + 1) % loadedImages.length;
-    expect(currentIndex).toBe(2);
+  test('should generate all unique permutations', () => {
+    const images = ['A', 'B', 'C'];
+    const perms = generatePermutations(images);
 
-    currentIndex = (currentIndex + 1) % loadedImages.length;
-    expect(currentIndex).toBe(0); // Wraps around
+    // Convert to strings for easy comparison
+    const permStrings = perms.map((p) => p.join(','));
+    const uniquePerms = new Set(permStrings);
+
+    // All permutations should be unique
+    expect(uniquePerms.size).toBe(6);
+
+    // Should contain all expected orderings
+    expect(uniquePerms).toContain('A,B,C');
+    expect(uniquePerms).toContain('A,C,B');
+    expect(uniquePerms).toContain('B,A,C');
+    expect(uniquePerms).toContain('B,C,A');
+    expect(uniquePerms).toContain('C,A,B');
+    expect(uniquePerms).toContain('C,B,A');
+  });
+
+  test('should generate 120 permutations for 5 images', () => {
+    const images = ['A', 'B', 'C', 'D', 'E'];
+    const perms = generatePermutations(images);
+
+    // 5! = 120 permutations
+    expect(perms).toHaveLength(120);
+
+    // All should be unique
+    const permStrings = perms.map((p) => p.join(','));
+    const uniquePerms = new Set(permStrings);
+    expect(uniquePerms.size).toBe(120);
+  });
+
+  test('dual-layer crossfade should toggle active class', () => {
+    document.body.innerHTML = `
+      <div class="background-container">
+        <div class="bg-layer bg-layer--active"></div>
+        <div class="bg-layer"></div>
+      </div>
+    `;
+
+    const layers = document.querySelectorAll('.bg-layer');
+    let activeLayerIndex = 0;
+
+    // Simulate crossfade
+    const crossfade = () => {
+      const currentLayer = layers[activeLayerIndex];
+      const nextLayerIndex = (activeLayerIndex + 1) % 2;
+      const nextLayer = layers[nextLayerIndex];
+
+      currentLayer.classList.remove('bg-layer--active');
+      nextLayer.classList.add('bg-layer--active');
+
+      activeLayerIndex = nextLayerIndex;
+    };
+
+    // Initial state: layer 0 is active
+    expect(layers[0].classList.contains('bg-layer--active')).toBe(true);
+    expect(layers[1].classList.contains('bg-layer--active')).toBe(false);
+
+    // After first crossfade: layer 1 is active
+    crossfade();
+    expect(layers[0].classList.contains('bg-layer--active')).toBe(false);
+    expect(layers[1].classList.contains('bg-layer--active')).toBe(true);
+
+    // After second crossfade: layer 0 is active again
+    crossfade();
+    expect(layers[0].classList.contains('bg-layer--active')).toBe(true);
+    expect(layers[1].classList.contains('bg-layer--active')).toBe(false);
   });
 });
 

@@ -28,11 +28,26 @@ body {
   width: 100%;
   min-height: 100vh;
   background-color: #000;
+  position: relative;
+}
+
+/* Dual-layer crossfade background system */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-color: #000;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* Only load the first image initially */
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  z-index: 0;
+  /* First image as default */
   background-image: url(../images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp);
+}
+
+.bg-layer--active {
+  opacity: 1;
 }
 
 body {

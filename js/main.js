@@ -124,10 +124,12 @@
   });
 })();
 
-// Background image rotation
+// Background image rotation with permutation-based ordering
+// Uses dual-layer crossfade for smooth transitions
+// Cycles through ALL possible orderings before repeating
 (() => {
-  const bgContainer = document.querySelector('.background-container');
-  if (!bgContainer) return;
+  const layers = document.querySelectorAll('.bg-layer');
+  if (layers.length < 2) return;
 
   const images = [
     'images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp',
@@ -140,19 +142,89 @@
   const loadedImages = [];
   let loadAttempts = 0;
 
+  // Generate all permutations of an array (Heap's algorithm)
+  const generatePermutations = (arr) => {
+    const result = [];
+    const heapPermute = (n, current) => {
+      if (n === 1) {
+        result.push([...current]);
+        return;
+      }
+      for (let i = 0; i < n; i++) {
+        heapPermute(n - 1, current);
+        if (n % 2 === 0) {
+          [current[i], current[n - 1]] = [current[n - 1], current[i]];
+        } else {
+          [current[0], current[n - 1]] = [current[n - 1], current[0]];
+        }
+      }
+    };
+    heapPermute(arr.length, [...arr]);
+    return result;
+  };
+
+  // Fisher-Yates shuffle
+  const shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  let permutations = [];
+  let permIndex = 0;
+  let imageIndex = 0;
+  let activeLayerIndex = 0;
+
+  const getNextImage = () => {
+    // If we've shown all images in current permutation, move to next
+    if (imageIndex >= permutations[permIndex].length) {
+      imageIndex = 0;
+      permIndex++;
+      // If we've exhausted all permutations, reshuffle and restart
+      if (permIndex >= permutations.length) {
+        permIndex = 0;
+        shuffle(permutations);
+      }
+    }
+    return permutations[permIndex][imageIndex++];
+  };
+
+  const crossfade = () => {
+    const nextImage = getNextImage();
+    const currentLayer = layers[activeLayerIndex];
+    const nextLayerIndex = (activeLayerIndex + 1) % 2;
+    const nextLayer = layers[nextLayerIndex];
+
+    // Set the next image on the hidden layer
+    nextLayer.style.backgroundImage = `url(${nextImage})`;
+
+    // Crossfade: fade out current, fade in next
+    currentLayer.classList.remove('bg-layer--active');
+    nextLayer.classList.add('bg-layer--active');
+
+    // Swap active layer for next iteration
+    activeLayerIndex = nextLayerIndex;
+  };
+
   const checkComplete = () => {
-    // Start animation when all load attempts are done (success or failure)
     if (loadAttempts === images.length && loadedImages.length > 0) {
       startAnimation();
     }
   };
 
   const startAnimation = () => {
-    let currentIndex = 0;
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % loadedImages.length;
-      bgContainer.style.backgroundImage = `url(${loadedImages[currentIndex]})`;
-    }, 9000); // 45s / 5 images = 9s per image
+    // Generate and shuffle all permutations
+    permutations = generatePermutations(loadedImages);
+    shuffle(permutations);
+
+    // Set initial image on the active layer
+    const firstImage = getNextImage();
+    layers[0].style.backgroundImage = `url(${firstImage})`;
+
+    // Start rotation
+    setInterval(crossfade, 9000);
   };
 
   // Preload images after initial page load
@@ -166,13 +238,12 @@
           checkComplete();
         };
         img.onerror = () => {
-          // Gracefully handle missing images - just skip them
           loadAttempts++;
           checkComplete();
         };
         img.src = src;
       }
-    }, 1000); // Delay preloading by 1 second to prioritize critical content
+    }, 1000);
   });
 })();
 
