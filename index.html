@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" />
+    <meta name="theme-color" content="#000000" />
+
     <!-- Security headers are set via Netlify HTTP headers (netlify.toml) -->
-    
+
     <title>re:liverecordings</title>
     
     <!-- Preconnect to critical origins -->
@@ -40,7 +40,12 @@
       />
     </noscript>
     
-    <link href="images/relivestamp.jpg" rel="icon" type="image/jpeg" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <meta
       name="description"
       content="re:liverecordings – professional live event recording and production services. Watch curated YouTube sets and Spotify playlists from live music events."
@@ -96,7 +101,7 @@
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="background-container">
-      <header>
+      <header aria-label="Site header">
         <a href="index.html">
           <picture>
             <source srcset="images/optimized/logo-white-600.webp" type="image/webp">
@@ -144,7 +149,7 @@
                 >About</a
               >
             </li>
-            <li><a href="mailto:rob@reliverecordings.co.uk">Contact</a></li>
+            <li><a href="#contact" id="contact-link">Contact</a></li>
           </ul>
         </nav>
       </header>
@@ -159,7 +164,6 @@
               width="560"
               height="380"
               src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
-              frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               loading="lazy"
@@ -172,16 +176,15 @@
               src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
               width="560"
               height="380"
-              frameborder="0"
               loading="lazy"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              allowtransparency="true"
             ></iframe>
           </div>
         </div>
+      </main>
       <footer>
         <p class="copyright">
-          <a href="index.html">&copy re:liverecordings</a>
+          <a href="index.html">&copy; re:liverecordings</a>
         </p>
         <div class="socials">
           <ul>
@@ -238,24 +241,127 @@
         </div>
       </footer>
     </div>
-    <div
-      class="cookie-toast is-hidden"
-      role="dialog"
-      aria-live="polite"
-      aria-label="Cookie notice"
-    >
+    <dialog class="cookie-toast" aria-label="Cookie notice">
       <p class="cookie-toast__body">
         This site uses essential cookies and third-party cookies from YouTube
         and Spotify embeds. No tracking cookies are set by us.
       </p>
-      <button
-        type="button"
-        class="cookie-toast__close"
-        aria-label="Dismiss cookie notice"
-      >
-        OK
-      </button>
-    </div>
+      <form method="dialog">
+        <button
+          type="submit"
+          class="cookie-toast__close"
+          aria-label="Dismiss cookie notice"
+        >
+          OK
+        </button>
+      </form>
+    </dialog>
+
+    <!-- Contact Form Modal -->
+    <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title">
+      <div class="contact-dialog__content" data-state="form">
+        <!-- Form State -->
+        <div class="contact-dialog__form-view">
+          <header class="contact-dialog__header" aria-label="Contact form header">
+            <h2 id="contact-title" class="contact-dialog__title">Get in Touch</h2>
+            <button
+              type="button"
+              class="contact-dialog__close"
+              aria-label="Close contact form"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <form
+            id="contact-form"
+            class="contact-form"
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
+            <!-- Honeypot field for spam protection -->
+            <p class="sr-only">
+              <label>Don't fill this out if you're human: <input type="text" name="bot-field" /></label>
+            </p>
+            <input type="hidden" name="form-name" value="contact" />
+
+            <div class="contact-form__field">
+              <label for="contact-name" class="contact-form__label">Name</label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                class="contact-form__input"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div class="contact-form__field">
+              <label for="contact-email" class="contact-form__label">Email</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                class="contact-form__input"
+                required
+                autocomplete="email"
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <div class="contact-form__field">
+              <label for="contact-message" class="contact-form__label">Message</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                class="contact-form__input contact-form__textarea"
+                required
+                rows="4"
+                placeholder="How can we help you?"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="contact-form__submit">
+              <span class="contact-form__submit-text">Send Message</span>
+              <span class="contact-form__submit-loading" aria-hidden="true">
+                <svg class="contact-form__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+                </svg>
+                Sending...
+              </span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Success State -->
+        <div class="contact-dialog__success-view" aria-live="polite">
+          <div class="contact-success">
+            <div class="contact-success__icon" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h2 class="contact-success__title">Message Sent!</h2>
+            <p class="contact-success__message">
+              Thanks for reaching out. We'll get back to you soon.
+            </p>
+            <button type="button" class="contact-success__close">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
     <script src="js/main.js" defer></script>
   </body>
 </html>
