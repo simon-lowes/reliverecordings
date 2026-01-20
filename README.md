@@ -7,7 +7,7 @@
 
 ## About
 
-ReLiveRecordings specializes in professional live event recording and production. We capture the energy and excitement of live performances with high-quality audio and video production.
+ReLiveRecordings specializes in professional live event recording and production. We capture the energy and excitement of live performances with high-quality audio production.
 
 ## Project Structure
 
