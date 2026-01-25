@@ -720,7 +720,8 @@ ul {
   background: var(--color-bg);
   color: var(--color-text);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+  overflow-y: auto;
+  z-index: 10000;
 
   /* Animation properties */
   opacity: 1;
@@ -782,6 +783,18 @@ ul {
 .contact-dialog__success-view {
   grid-area: view;
   transition: opacity 250ms ease-out, transform 250ms ease-out;
+}
+
+/* Explicit initial states - ensures visibility without relying solely on data-state */
+.contact-dialog__form-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contact-dialog__success-view {
+  opacity: 0;
+  transform: translateX(30px);
+  pointer-events: none;
 }
 
 /* State management */
@@ -1092,5 +1105,36 @@ ul {
   .contact-form__spinner {
     animation: none;
     transition: none;
+  }
+}
+
+/* Mobile styles for contact dialog */
+@media (max-width: 540px) {
+  .contact-dialog {
+    width: calc(100vw - 1.5rem);
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    border-radius: 12px;
+  }
+
+  .contact-dialog__header {
+    padding: 1rem 1.25rem;
+  }
+
+  .contact-dialog__title {
+    font-size: 1.25rem;
+  }
+
+  .contact-form {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .contact-form__textarea {
+    min-height: 80px;
+  }
+
+  .contact-success {
+    padding: 2rem 1.25rem;
   }
 }
