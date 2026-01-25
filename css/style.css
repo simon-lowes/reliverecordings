@@ -721,7 +721,7 @@ ul {
   color: var(--color-text);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
-  z-index: 10000;
+  z-index: 2500;
 
   /* Animation properties */
   opacity: 1;
