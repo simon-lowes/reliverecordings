@@ -705,7 +705,7 @@ ul {
 }
 
 /* ==========================================================================
-   Contact Form Dialog - Modern CSS with @starting-style animations
+   Contact Form Dialog - Cross-browser compatible with class-based animations
    ========================================================================== */
 
 .contact-dialog {
@@ -723,52 +723,22 @@ ul {
   overflow-y: auto;
   z-index: 2500;
 
-  /* Animation properties */
+  /* Base visible state */
   opacity: 1;
   transform: scale(1) translateY(0);
-  transition:
-    opacity 300ms ease-out,
-    transform 300ms ease-out,
-    overlay 300ms ease-out allow-discrete,
-    display 300ms ease-out allow-discrete;
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
 }
 
-/* Entry animation using @starting-style (modern standard) */
-@starting-style {
-  .contact-dialog[open] {
-    opacity: 0;
-    transform: scale(0.95) translateY(20px);
-  }
-}
-
-/* Exit animation */
-.contact-dialog:not([open]) {
+/* Entry animation - starts hidden, JS removes this class after showModal */
+.contact-dialog.dialog--opening {
   opacity: 0;
   transform: scale(0.95) translateY(20px);
-  pointer-events: none;
 }
 
-/* Backdrop styling */
+/* Backdrop styling - simple fade */
 .contact-dialog::backdrop {
-  background: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(0);
-  transition:
-    background 300ms ease-out,
-    backdrop-filter 300ms ease-out,
-    overlay 300ms ease-out allow-discrete,
-    display 300ms ease-out allow-discrete;
-}
-
-.contact-dialog[open]::backdrop {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-}
-
-@starting-style {
-  .contact-dialog[open]::backdrop {
-    background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0);
-  }
 }
 
 /* Dialog content wrapper */
