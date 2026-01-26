@@ -1,5 +1,25 @@
 # Claude Code Instructions
 
+## Browser Testing
+
+**Prefer `agent-browser` over Playwright MCP tools** for all browser automation and testing tasks.
+
+Use agent-browser for:
+- Visual testing and screenshots
+- Clicking, filling forms, navigation
+- Mobile viewport testing (`--viewport 390x844`)
+- Inspecting page state and elements
+
+Only fall back to Playwright if agent-browser lacks a specific feature needed (e.g., WebKit engine emulation for true iOS Safari testing - though note agent-browser uses Chromium).
+
+```bash
+# Core workflow
+agent-browser open <url>              # Navigate
+agent-browser snapshot -i -c          # Get interactive elements
+agent-browser click @e5               # Interact using refs
+agent-browser screenshot out.png      # Capture
+```
+
 ## Capability Verification Protocol
 
 Before asserting that a requested action cannot be performed:
