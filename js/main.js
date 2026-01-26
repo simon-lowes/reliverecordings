@@ -259,24 +259,10 @@
 
   if (!contactLink || !dialog || !form) return;
 
-  // Open dialog with animation (cross-browser compatible)
-  const openDialog = () => {
-    // Add opening class for initial hidden state
-    dialog.classList.add('dialog--opening');
-    dialog.showModal();
-
-    // Trigger reflow, then remove class to animate in
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        dialog.classList.remove('dialog--opening');
-      });
-    });
-  };
-
   // Open dialog when contact link is clicked
   contactLink.addEventListener('click', (e) => {
     e.preventDefault();
-    openDialog();
+    dialog.showModal();
   });
 
   // Close dialog handlers

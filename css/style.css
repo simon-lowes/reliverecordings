@@ -710,9 +710,15 @@ ul {
 
 .contact-dialog {
   position: fixed;
-  inset: 0;
-  width: min(90vw, 480px);
-  max-height: min(90vh, 600px);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 90vw;
+  max-width: 480px;
+  height: fit-content;
+  max-height: 90vh;
+  max-height: 90dvh;
   margin: auto;
   padding: 0;
   border: none;
@@ -721,24 +727,12 @@ ul {
   color: var(--color-text);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
-  z-index: 2500;
-
-  /* Base visible state */
-  opacity: 1;
-  transform: scale(1) translateY(0);
-  transition: opacity 300ms ease-out, transform 300ms ease-out;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Entry animation - starts hidden, JS removes this class after showModal */
-.contact-dialog.dialog--opening {
-  opacity: 0;
-  transform: scale(0.95) translateY(20px);
-}
-
-/* Backdrop styling - simple fade */
+/* Backdrop styling - no blur for iOS compatibility */
 .contact-dialog::backdrop {
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
 }
 
 /* Dialog content wrapper */
