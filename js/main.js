@@ -247,45 +247,60 @@
   });
 })();
 
-// Contact form dialog functionality
+// Contact form modal functionality (custom div-based for iOS compatibility)
 (() => {
   const contactLink = document.getElementById('contact-link');
-  const dialog = document.getElementById('contact-dialog');
+  const modal = document.getElementById('contact-dialog');
+  const backdrop = modal?.querySelector('.contact-dialog__backdrop');
   const form = document.getElementById('contact-form');
-  const content = dialog?.querySelector('.contact-dialog__content');
-  const closeBtn = dialog?.querySelector('.contact-dialog__close');
-  const successCloseBtn = dialog?.querySelector('.contact-success__close');
+  const content = modal?.querySelector('.contact-dialog__content');
+  const closeBtn = modal?.querySelector('.contact-dialog__close');
+  const successCloseBtn = modal?.querySelector('.contact-success__close');
   const submitBtn = form?.querySelector('.contact-form__submit');
 
-  if (!contactLink || !dialog || !form) return;
+  if (!contactLink || !modal || !form) return;
 
-  // Open dialog when contact link is clicked
-  contactLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    dialog.showModal();
-  });
-
-  // Close dialog handlers
-  const closeDialog = () => {
-    dialog.close();
+  // Open modal
+  const openModal = () => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    // Focus first input after a brief delay
+    setTimeout(() => {
+      form.querySelector('input')?.focus();
+    }, 100);
   };
 
-  closeBtn?.addEventListener('click', closeDialog);
-  successCloseBtn?.addEventListener('click', closeDialog);
-
-  // Close on backdrop click
-  dialog.addEventListener('click', (e) => {
-    if (e.target === dialog) {
-      closeDialog();
-    }
-  });
-
-  // Reset form state when dialog closes
-  dialog.addEventListener('close', () => {
+  // Close modal
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // Reset form state
     content.dataset.state = 'form';
     form.reset();
     submitBtn.disabled = false;
     submitBtn.dataset.loading = 'false';
+  };
+
+  // Open modal when contact link is clicked
+  contactLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  // Close handlers
+  closeBtn?.addEventListener('click', closeModal);
+  successCloseBtn?.addEventListener('click', closeModal);
+
+  // Close on backdrop click
+  backdrop?.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
   });
 
   // Handle form submission

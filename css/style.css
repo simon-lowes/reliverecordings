@@ -705,47 +705,49 @@ ul {
 }
 
 /* ==========================================================================
-   Contact Form Dialog - Cross-browser compatible with class-based animations
+   Contact Form Modal - Custom div-based modal for iOS compatibility
    ========================================================================== */
 
 .contact-dialog {
-  /* Override UA dialog styles with !important */
-  display: none !important;
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
-  transform: translate(-50%, -50%) !important;
-  width: 90vw;
-  max-width: 480px;
-  max-height: 90vh;
-  margin: 0 !important;
-  padding: 0;
-  border: none !important;
-  border-radius: 16px;
-  background: #000 !important;
-  color: #fff;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  opacity: 1 !important;
-  visibility: visible !important;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
 }
 
-/* When dialog is open */
-.contact-dialog[open] {
-  display: block !important;
+/* When modal is open */
+.contact-dialog.is-open {
+  display: block;
 }
 
-/* Backdrop styling - no blur for iOS compatibility */
-.contact-dialog::backdrop {
+/* Backdrop overlay */
+.contact-dialog__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* Dialog content wrapper */
+/* Dialog content box */
 .contact-dialog__content {
-  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 480px;
+  max-height: 90vh;
+  background: #000;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: grid;
   grid-template-areas: "view";
   text-align: left;
@@ -1082,7 +1084,7 @@ ul {
 
 /* Mobile styles for contact dialog */
 @media (max-width: 540px) {
-  .contact-dialog {
+  .contact-dialog__content {
     width: calc(100vw - 2rem);
     max-height: calc(100vh - 4rem);
     border-radius: 12px;
