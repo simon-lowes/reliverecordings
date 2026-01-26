@@ -709,30 +709,33 @@ ul {
    ========================================================================== */
 
 .contact-dialog {
-  /* Reset any inherited/default dialog styles */
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* Override UA dialog styles with !important */
+  display: none !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
   width: 90vw;
   max-width: 480px;
   max-height: 90vh;
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
-  border: none;
+  border: none !important;
   border-radius: 16px;
-  background: #000;
+  background: #000 !important;
   color: #fff;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  z-index: 10000;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* When dialog is open */
 .contact-dialog[open] {
-  display: block;
+  display: block !important;
 }
 
 /* Backdrop styling - no blur for iOS compatibility */
