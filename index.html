@@ -260,8 +260,9 @@
       </form>
     </dialog>
 
-    <!-- Contact Form Modal -->
-    <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title">
+    <!-- Contact Form Modal - using div instead of dialog for iOS compatibility -->
+    <div id="contact-dialog" class="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
+      <div class="contact-dialog__backdrop"></div>
       <div class="contact-dialog__content" data-state="form">
         <!-- Form State -->
         <div class="contact-dialog__form-view">
@@ -363,7 +364,7 @@
           </div>
         </div>
       </div>
-    </dialog>
+    </div>
 
     <script src="js/main.js" defer></script>
   </body>
