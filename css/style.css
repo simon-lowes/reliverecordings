@@ -29,6 +29,8 @@ body {
   min-height: 100vh;
   background-color: #000;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Dual-layer crossfade background system */
@@ -231,6 +233,7 @@ main {
   align-items: center;
   position: relative;
   z-index: 1;
+  flex-shrink: 0;
 }
 
 a {
@@ -481,7 +484,11 @@ button:focus-visible {
 footer {
   position: relative;
   z-index: 1;
-  padding: 3rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 150px;
 }
 
 footer ul li {
@@ -500,6 +507,7 @@ footer a:link {
 
 footer p {
   margin: 0 0 0.5em;
+  padding: 0;
 }
 
 footer li a:active,
