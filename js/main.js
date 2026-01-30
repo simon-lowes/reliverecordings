@@ -7,6 +7,12 @@
   }
 })();
 
+// Dynamic copyright year
+(() => {
+  const el = document.getElementById('copyright-year');
+  if (el) el.textContent = new Date().getFullYear();
+})();
+
 // Mobile navigation toggle
 (() => {
   const navToggle = document.getElementById('nav-toggle');
