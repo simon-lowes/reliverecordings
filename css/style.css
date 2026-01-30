@@ -24,12 +24,11 @@ body {
 
 .background-container {
   text-align: center;
+  height: 100%;
   width: 100%;
   min-height: 100vh;
   background-color: #000;
   position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Dual-layer crossfade background system */
@@ -482,10 +481,7 @@ button:focus-visible {
 footer {
   position: relative;
   z-index: 1;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 3rem 0;
 }
 
 footer ul li {
