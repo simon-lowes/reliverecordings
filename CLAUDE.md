@@ -37,6 +37,24 @@ The goal is accuracy over confidence. An incorrect "I cannot do this" wastes the
 - `.socials ul` — `display: flex; flex-wrap: nowrap; gap: clamp(0.75rem, 4vw, 2rem)` to keep social icons on one row at all viewport widths
 - **Copyright year** — set dynamically via JS in `main.js`
 
+## Adaptive Nav Link Color System
+
+Desktop nav links (ABOUT, CONTACT) adapt their color based on background image brightness to maintain contrast during the crossfade rotation.
+
+**How it works:**
+- During image preload (`js/main.js`), each image is drawn to a tiny offscreen canvas and the nav region (top-center strip) is sampled for WCAG relative luminance
+- Results stored in `navColorMap`: luminance >= 0.5 → `#1a1a1a` (dark text), else → `#fff` (white text)
+- Applied via CSS custom property `--nav-link-color` on `<html>`, consumed by desktop `nav a` rules
+- `setNavColor()` is guarded by `matchMedia('(min-width: 800px)')` — mobile nav has dark overlay, unaffected
+- CSS `text-shadow: 0 1px 3px rgba(0,0,0,0.6)` on desktop nav links provides fallback contrast if JS fails
+- Color transition is 1s (half the 2s image crossfade) so it reaches target as the new image becomes dominant
+
+**Key files:**
+- `css/style.css`: `--nav-link-color` custom property in `:root`, desktop `nav a` uses it with text-shadow safety net
+- `js/main.js`: `analyzeNavRegion()`, `setNavColor()`, `navColorMap` — all inside the background rotation IIFE
+
+**If images change:** No manual updates needed — luminance is auto-detected from pixel data during preload.
+
 ## Known Issues
 - Spotify embed shows blank white in Safari private browsing — Spotify limitation (requires cookies/localStorage), not a site bug
 - Embeds (YouTube/Spotify) are inside `.embed-container` → `.embed-block` — **do not add flexbox to `.background-container` without testing embeds still render correctly**
