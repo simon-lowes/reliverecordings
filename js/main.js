@@ -147,6 +147,72 @@
 
   const loadedImages = [];
   let loadAttempts = 0;
+  const navColorMap = {};
+  const desktopMQ = window.matchMedia('(min-width: 800px)');
+
+  // Analyze the nav region of an image to determine average luminance.
+  // Replicates background-size:cover crop logic to sample the area
+  // that actually appears behind the nav links on desktop.
+  const analyzeNavRegion = (img) => {
+    const canvasWidth = 100;
+    const scale = canvasWidth / img.naturalWidth;
+    const canvasHeight = Math.round(img.naturalHeight * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+
+    // Simulate background-size:cover crop to find where nav sits in source image.
+    // Assume a 16:9-ish viewport ratio for desktop (the exact ratio doesn't matter
+    // much — we just need to know if the top-center is bright or dark).
+    const vpAspect = 16 / 9;
+    const imgAspect = canvasWidth / canvasHeight;
+
+    let srcX, srcY, srcW, srcH;
+    if (imgAspect > vpAspect) {
+      // Image is wider than viewport — sides cropped
+      srcH = canvasHeight;
+      srcW = Math.round(canvasHeight * vpAspect);
+      srcX = Math.round((canvasWidth - srcW) / 2);
+      srcY = 0;
+    } else {
+      // Image is taller than viewport — top/bottom cropped
+      srcW = canvasWidth;
+      srcH = Math.round(canvasWidth / vpAspect);
+      srcX = 0;
+      srcY = Math.round((canvasHeight - srcH) / 2);
+    }
+
+    // Nav links sit at roughly y:5-15%, x:35-65% of the visible viewport area
+    const sampleX = srcX + Math.round(srcW * 0.35);
+    const sampleY = srcY + Math.round(srcH * 0.05);
+    const sampleW = Math.round(srcW * 0.3);
+    const sampleH = Math.round(srcH * 0.1);
+
+    // Clamp to canvas bounds
+    const clampedX = Math.max(0, Math.min(sampleX, canvasWidth - 1));
+    const clampedY = Math.max(0, Math.min(sampleY, canvasHeight - 1));
+    const clampedW = Math.max(1, Math.min(sampleW, canvasWidth - clampedX));
+    const clampedH = Math.max(1, Math.min(sampleH, canvasHeight - clampedY));
+
+    const data = ctx.getImageData(clampedX, clampedY, clampedW, clampedH).data;
+    let totalLuminance = 0;
+    const pixelCount = data.length / 4;
+    for (let i = 0; i < data.length; i += 4) {
+      totalLuminance +=
+        0.2126 * (data[i] / 255) +
+        0.7152 * (data[i + 1] / 255) +
+        0.0722 * (data[i + 2] / 255);
+    }
+    return totalLuminance / pixelCount;
+  };
+
+  const setNavColor = (imageSrc) => {
+    if (!desktopMQ.matches) return;
+    const color = navColorMap[imageSrc] || '#fff';
+    document.documentElement.style.setProperty('--nav-link-color', color);
+  };
 
   // Generate all permutations of an array (Heap's algorithm)
   const generatePermutations = (arr) => {
@@ -206,6 +272,9 @@
     // Set the next image on the hidden layer
     nextLayer.style.backgroundImage = `url(${nextImage})`;
 
+    // Update nav link color for the incoming image
+    setNavColor(nextImage);
+
     // Crossfade: fade out current, fade in next
     currentLayer.classList.remove('bg-layer--active');
     nextLayer.classList.add('bg-layer--active');
@@ -229,6 +298,9 @@
     const firstImage = getNextImage();
     layers[0].style.backgroundImage = `url(${firstImage})`;
 
+    // Set initial nav color for the first image
+    setNavColor(firstImage);
+
     // Start rotation
     setInterval(crossfade, 9000);
   };
@@ -239,6 +311,8 @@
       for (const src of images) {
         const img = new Image();
         img.onload = () => {
+          const luminance = analyzeNavRegion(img);
+          navColorMap[src] = luminance >= 0.5 ? '#1a1a1a' : '#fff';
           loadedImages.push(src);
           loadAttempts++;
           checkComplete();
