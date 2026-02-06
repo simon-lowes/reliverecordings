@@ -95,8 +95,8 @@
   const persistDismissal = () => {
     try {
       localStorage.setItem(storageKey, '1');
-    } catch {
-      // Ignore storage errors so dismissal still works
+    } catch (e) {
+      console.warn('localStorage unavailable:', e);
     }
   };
 
@@ -121,8 +121,8 @@
     let dismissed = false;
     try {
       dismissed = localStorage.getItem(storageKey) === '1';
-    } catch {
-      // Ignore storage errors so the notice can still show
+    } catch (e) {
+      console.warn('localStorage unavailable:', e);
     }
     if (!dismissed) {
       dialog.show(); // Non-modal: doesn't trap focus or add backdrop
@@ -301,8 +301,19 @@
     // Set initial nav color for the first image
     setNavColor(firstImage);
 
-    // Start rotation
-    setInterval(crossfade, 9000);
+    // Start rotation with visibility-based pause/resume
+    let rotationInterval = setInterval(crossfade, 9000);
+    let isPaused = false;
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearInterval(rotationInterval);
+        isPaused = true;
+      } else if (isPaused) {
+        rotationInterval = setInterval(crossfade, 9000);
+        isPaused = false;
+      }
+    });
   };
 
   // Preload images after initial page load
@@ -318,6 +329,7 @@
           checkComplete();
         };
         img.onerror = () => {
+          console.warn('Background image failed to load:', img.src);
           loadAttempts++;
           checkComplete();
         };
@@ -336,6 +348,7 @@
   const content = modal?.querySelector('.contact-dialog__content');
   const closeBtn = modal?.querySelector('.contact-dialog__close');
   const successCloseBtn = modal?.querySelector('.contact-success__close');
+  const errorRetryBtn = modal?.querySelector('.contact-error__retry');
   const submitBtn = form?.querySelector('.contact-form__submit');
 
   if (!contactLink || !modal || !form) return;
@@ -373,6 +386,11 @@
   closeBtn?.addEventListener('click', closeModal);
   successCloseBtn?.addEventListener('click', closeModal);
 
+  // Retry handler — return to form state so user can resubmit
+  errorRetryBtn?.addEventListener('click', () => {
+    content.dataset.state = 'form';
+  });
+
   // Close on backdrop click
   backdrop?.addEventListener('click', closeModal);
 
@@ -407,10 +425,10 @@
       // Success - transition to success state
       content.dataset.state = 'success';
     } catch (error) {
-      // On error, re-enable form and show alert
+      // On error, show inline error state
       submitBtn.disabled = false;
       submitBtn.dataset.loading = 'false';
-      alert('Sorry, there was an error sending your message. Please try again or email us directly.');
+      content.dataset.state = 'error';
       console.error('Form submission error:', error);
     }
   });

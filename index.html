@@ -344,6 +344,25 @@
           </form>
         </div>
 
+        <!-- Error State -->
+        <div class="contact-dialog__error-view" aria-live="assertive">
+          <div class="contact-error">
+            <div class="contact-error__icon" aria-hidden="true">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h2 class="contact-error__title">Something went wrong</h2>
+            <p class="contact-error__message">
+              Sorry, we couldn't send your message. Please try again or email us directly at
+              <a href="mailto:rob@reliverecordings.co.uk">rob@reliverecordings.co.uk</a>.
+            </p>
+            <button type="button" class="contact-error__retry">Try Again</button>
+          </div>
+        </div>
+
         <!-- Success State -->
         <div class="contact-dialog__success-view" aria-live="polite">
           <div class="contact-success">

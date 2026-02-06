@@ -18,3 +18,9 @@ test-results/
 .idea/
 *.swp
 *.swo
+
+# Secrets and certificates
+*.pem
+*.key
+.env
+.env.*
