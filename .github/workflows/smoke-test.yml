@@ -1,0 +1,36 @@
+name: Smoke Test
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate HTML
+        run: npm run validate:html
+
+      - name: Lint JS
+        run: npm run validate:js
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke test - page loads
+        run: npx playwright test e2e/navigation.spec.js --project=chromium
