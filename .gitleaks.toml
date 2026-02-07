@@ -1,0 +1,11 @@
+title = "gitleaks config"
+
+[allowlist]
+  description = "Global allowlist"
+  paths = [
+    '''node_modules''',
+    '''package-lock\.json''',
+    '''\.playwright''',
+    '''playwright-report''',
+    '''test-results''',
+  ]
