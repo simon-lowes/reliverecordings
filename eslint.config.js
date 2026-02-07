@@ -1,8 +1,10 @@
 const js = require('@eslint/js');
 const globals = require('globals');
+const security = require('eslint-plugin-security');
 
 module.exports = [
   js.configs.recommended,
+  security.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2022,
