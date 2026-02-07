@@ -55,6 +55,9 @@ Desktop nav links (ABOUT, CONTACT) adapt their color based on background image b
 
 **If images change:** No manual updates needed — luminance is auto-detected from pixel data during preload.
 
+## Testing Standards
+When testing this project, read `testing-standards.md` from the memory directory first. Before running tests, do a quick web search for updates to the specific tools being used. Update the memory file with any changes found.
+
 ## Known Issues
 - Spotify embed shows blank white in Safari private browsing — Spotify limitation (requires cookies/localStorage), not a site bug
 - Embeds (YouTube/Spotify) are inside `.embed-container` → `.embed-block` — **do not add flexbox to `.background-container` without testing embeds still render correctly**
