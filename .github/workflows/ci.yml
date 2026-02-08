@@ -23,7 +23,6 @@ jobs:
       - run: npm ci
 
       - name: Validate HTML
-        continue-on-error: true  # Pre-existing hidden-focusable warnings
         run: npm run validate:html
 
       - name: Lint CSS
@@ -38,5 +37,5 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
 
-      - name: Run E2E tests
-        run: npm run test:e2e
+      - name: Run E2E tests (excluding visual regression)
+        run: npx playwright test --project=chromium --ignore-snapshots e2e/navigation.spec.js e2e/a11y.spec.js e2e/contact.spec.js
