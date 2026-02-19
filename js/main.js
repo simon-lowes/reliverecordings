@@ -7,6 +7,27 @@
   }
 })();
 
+// Embed facade activation — replaces lightweight placeholders with real iframes on click
+(() => {
+  for (const facade of document.querySelectorAll('.embed-facade')) {
+    facade.addEventListener('click', () => {
+      const src = facade.dataset.src;
+      const title = facade.dataset.title || '';
+      const block = facade.closest('.embed-block');
+      if (!src || !block) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = title;
+      iframe.width = '560';
+      iframe.height = '380';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture';
+      block.classList.add('embed-block--active');
+      block.appendChild(iframe);
+    });
+  }
+})();
+
 // Dynamic copyright year
 (() => {
   const el = document.getElementById('copyright-year');
