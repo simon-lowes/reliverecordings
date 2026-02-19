@@ -20,7 +20,7 @@
       rel="preload"
       as="image"
       type="image/webp"
-      href="images/optimized/logo-white-600.webp"
+      href="images/optimized/logo-white-400.webp"
     />
 
     <!-- Preload initial background image (CSS-loaded, blocks rendering without this) -->
@@ -31,9 +31,15 @@
       href="images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp"
     />
     
-    <!-- Critical CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-    
+    <!-- Critical CSS inlined for fast FCP -->
+    <style>
+      :root{color-scheme:dark;--color-bg:#000;--color-text:#fff;--color-accent:#e91d26;--color-muted:#ccc;--color-overlay:rgba(0,0,0,.95);--color-border-subtle:rgba(255,255,255,.1);--nav-link-color:#fff}*{box-sizing:border-box}html{background-color:var(--color-bg)}body{background-color:transparent;font-family:'Roboto Condensed',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;padding:0;text-align:center;height:100%;width:100%;color:var(--color-text)}.background-container{text-align:center;height:100%;width:100%;min-height:100vh;background-color:#000;position:relative;display:flex;flex-direction:column}.bg-layer{position:absolute;inset:0;background-color:#000;background-position:center;background-repeat:no-repeat;background-size:cover;opacity:0;transition:opacity 2s ease-in-out;z-index:0;background-image:url(images/images_50/Sub_Focus_Blue_Lightbeams_02_50.webp)}.bg-layer--active{opacity:1}header{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:999;left:0;right:0;margin:0;padding:.5rem 0 1rem;contain:layout}header>a{position:relative;display:inline-block;width:clamp(100px,25vw,130px);height:auto;aspect-ratio:390/600}img{max-width:100%;height:auto}a .logo{aspect-ratio:390/600;width:100%;height:auto;max-height:200px;margin:1em;object-fit:contain;text-align:center;contain:layout size}a .logo-hover{position:absolute;top:0;left:0;aspect-ratio:390/600;width:100%;height:auto;max-height:200px;margin:1em;object-fit:contain;opacity:0;transition:opacity .2s ease-in-out}a:hover .logo-hover{opacity:1}a{text-decoration:none}a:visited,a:hover,a:link{text-decoration:none}nav{position:absolute;text-align:left;align-items:center;background:var(--color-overlay);top:100%;left:0;width:100%;transform:scaleY(0);transform-origin:top;transition:transform 200ms ease-in-out;z-index:10}nav ul{margin:0;padding:0;text-decoration:none;list-style-type:none}nav li{color:var(--color-text);margin:0;padding:.75em 1em;text-decoration:none;border-bottom:1px solid var(--color-border-subtle)}nav li:last-child{border-bottom:none}nav a{font-weight:900;text-decoration:none;color:var(--color-text);text-transform:uppercase;font-size:.9rem;padding:.5em 0;display:block;opacity:0;transition:opacity 150ms ease-in-out,color .3s ease}nav a:visited,nav a:link{color:var(--color-text)}nav.nav-open{transform:scaleY(1)}nav.nav-open a{opacity:1;transition:opacity 250ms ease-in-out 100ms,color .3s ease}.nav-toggle{position:absolute;top:.5rem;left:.5rem;background:transparent;border:none;padding:.75em;cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center}.nav-toggle .nav-toggle-bars,.nav-toggle .nav-toggle-bars::before,.nav-toggle .nav-toggle-bars::after{display:block;background:var(--color-text);height:3px;width:2em;border-radius:2px;position:relative;transition:background-color .3s ease}.nav-toggle .nav-toggle-bars::before,.nav-toggle .nav-toggle-bars::after{content:'';position:absolute}.nav-toggle .nav-toggle-bars::before{bottom:8px}.nav-toggle .nav-toggle-bars::after{top:8px}main{max-width:95vw;width:100%;height:auto;margin:auto;padding:1.5rem 1rem;display:flex;flex-direction:column;gap:1rem;align-items:center;position:relative;z-index:1;flex-shrink:0}.skip-link{position:absolute;top:-100%;left:0;background:var(--color-accent);color:var(--color-text);padding:.5rem 1rem;z-index:2000;font-weight:700;text-decoration:none}.skip-link:focus{top:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}footer{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;justify-content:center;min-height:150px}footer p{margin:0 0 .5em;padding:0}.copyright a:hover,p{color:var(--color-accent)}.copyright a:active,.copyright a:link,p{color:var(--color-text)}footer a:visited{color:var(--color-text);text-decoration:none}footer a:link{color:var(--color-text)}.social-icon{width:1.25em;height:1.25em;vertical-align:middle;fill:currentColor}.socials ul{display:flex;justify-content:center;gap:clamp(.75rem,4vw,2rem);padding:0;margin:0;list-style:none;flex-wrap:nowrap}.socials ul li{flex-shrink:1;min-width:0;color:var(--color-text)}footer ul li{margin:0;padding:0}footer li a:active,footer li a:link,footer li a:visited{color:var(--color-text)}footer li a:hover{color:var(--color-accent)}ul{margin:0;padding:0}.embed-container{display:flex;flex-direction:column;gap:1.5rem;width:100%;max-width:95vw;margin:0 auto}.embed-block{width:100%;margin:0 auto}.embed-block iframe{display:block;width:100%;height:380px;border:0;border-radius:12px}.youtube{min-height:380px;height:380px;contain:layout size style;content-visibility:auto;contain-intrinsic-size:auto 560px 380px}.spotify{display:flex;flex-direction:column;align-items:center;margin:0 auto;width:100%;min-height:380px;height:380px;contain:layout size style;content-visibility:auto;contain-intrinsic-size:auto 560px 380px;overflow:hidden;position:relative}@media screen and (min-width:800px){.nav-toggle{display:none}header{display:flex;flex-direction:column;align-items:center;gap:1rem}nav{all:unset;display:flex;justify-content:center;align-items:center;text-align:center;position:relative;z-index:10;padding:.5rem 0 1rem}nav ul{text-align:center;display:flex;align-items:center;gap:1rem}nav li{text-align:center;margin:0;padding:0;border:none}nav a{opacity:1;position:relative;font-weight:900;text-decoration:none;color:var(--nav-link-color);text-transform:uppercase;font-size:1rem;padding:.5em .75em;display:inline-block;text-shadow:0 1px 3px rgba(0,0,0,.6);transition:color 1s ease-in-out}nav a:visited,nav a:link{color:var(--nav-link-color)}nav a:hover{color:var(--color-accent)}}@media screen and (min-width:1200px){.embed-container{flex-direction:row;max-width:90vw;gap:2rem}.embed-container .embed-block{flex:1}}@media(prefers-reduced-motion:reduce){.bg-layer{transition:none}}
+    </style>
+
+    <!-- Full CSS loaded asynchronously -->
+    <link rel="preload" href="css/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/style.min.css"></noscript>
+
     <!-- Google Fonts - preload for async loading (activated via JS) -->
     <link
       rel="preload"
@@ -115,24 +121,24 @@
       <header aria-label="Site header">
         <a href="index.html">
           <picture>
-            <source srcset="images/optimized/logo-white-600.webp" type="image/webp">
+            <source srcset="images/optimized/logo-white-400.webp" type="image/webp">
             <img
-              src="images/optimized/logo-white-600.png"
+              src="images/optimized/logo-white-400.png"
               class="logo"
               alt="re:liverecordings"
-              width="390"
-              height="600"
+              width="260"
+              height="400"
               fetchpriority="high"
             />
           </picture>
           <picture>
-            <source srcset="images/optimized/logo-red-600.webp" type="image/webp">
+            <source srcset="images/optimized/logo-red-400.webp" type="image/webp">
             <img
-              src="images/optimized/logo-red-600.png"
+              src="images/optimized/logo-red-400.png"
               class="logo-hover"
               alt="re:liverecordings hover"
-              width="390"
-              height="600"
+              width="260"
+              height="400"
               loading="lazy"
             />
           </picture>
@@ -173,7 +179,7 @@
               title="re:liverecordings YouTube playlist"
               width="560"
               height="380"
-              src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
+              data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLiuakQKNi2lRob27UGqTdmESXvWlcXSGK"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               loading="lazy"
@@ -183,7 +189,7 @@
           <div class="spotify embed-block">
             <iframe
               title="re:liverecordings Spotify playlist"
-              src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
+              data-src="https://open.spotify.com/embed/playlist/1x7O9sFDGfKgOf5Ki9ZGO6?utm_source=generator&theme=0"
               width="560"
               height="380"
               loading="lazy"
@@ -392,6 +398,6 @@
       </div>
     </div>
 
-    <script src="js/main.js" defer></script>
+    <script src="js/main.min.js" defer></script>
   </body>
 </html>

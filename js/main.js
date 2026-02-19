@@ -13,6 +13,21 @@
   if (el) el.textContent = new Date().getFullYear();
 })();
 
+// Deferred iframe loading — loads embeds after page paint to avoid blocking LCP.
+// Iframes auto-load without user interaction (no click required).
+(() => {
+  const loadIframes = () => {
+    for (const iframe of document.querySelectorAll('iframe[data-src]')) {
+      iframe.src = iframe.dataset.src;
+    }
+  };
+  if (document.readyState === 'complete') {
+    loadIframes();
+  } else {
+    window.addEventListener('load', loadIframes);
+  }
+})();
+
 // Mobile navigation toggle
 (() => {
   const navToggle = document.getElementById('nav-toggle');
