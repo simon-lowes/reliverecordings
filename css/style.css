@@ -1,4 +1,11 @@
-/* Google Fonts loaded via <link> in HTML with font-display: swap */
+/* Self-hosted Roboto Condensed */
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/roboto-condensed-latin-400.woff2') format('woff2');
+}
 
 :root {
   color-scheme: dark;
