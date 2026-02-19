@@ -3,6 +3,7 @@ const globals = require('globals');
 const security = require('eslint-plugin-security');
 
 module.exports = [
+  { ignores: ['**/*.min.js'] },
   js.configs.recommended,
   security.configs.recommended,
   {
