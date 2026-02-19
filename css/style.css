@@ -314,6 +314,7 @@ a:hover .logo-hover {
   height: 380px; /* Fixed height to prevent CLS */
   contain: layout size style; /* Full containment */
   content-visibility: auto; /* Optimize rendering */
+  contain-intrinsic-size: auto 560px 380px; /* Hint for content-visibility */
 }
 
 .spotify {
@@ -326,6 +327,7 @@ a:hover .logo-hover {
   height: 380px; /* Fixed height to prevent CLS */
   contain: layout size style; /* Full containment */
   content-visibility: auto; /* Optimize rendering */
+  contain-intrinsic-size: auto 560px 380px; /* Hint for content-visibility */
   overflow: hidden; /* Prevent fallback text from causing shift */
 }
 
@@ -425,6 +427,10 @@ a:hover .logo-hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .bg-layer {
+    transition: none;
+  }
+
   .cookie-toast,
   .cookie-toast__close {
     transition: none;
