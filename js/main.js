@@ -1,12 +1,3 @@
-// Activate preloaded Google Fonts (non-render-blocking)
-// Note: Fonts are preloaded in HTML and activated here for optimal performance
-(() => {
-  const fontLink = document.getElementById('google-fonts-preload');
-  if (fontLink) {
-    fontLink.rel = 'stylesheet';
-  }
-})();
-
 // Dynamic copyright year
 (() => {
   const el = document.getElementById('copyright-year');
