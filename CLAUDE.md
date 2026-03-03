@@ -1,17 +1,5 @@
 # Claude Code Instructions
 
-## Capability Verification Protocol
-
-Before asserting that a requested action cannot be performed:
-
-1. **Consult authoritative sources** - Search current documentation, official references, or reliable technical sources to verify the limitation exists
-2. **Cite evidence** - If the limitation is genuine, provide specific references (documentation links, error codes, technical constraints) that substantiate the claim
-3. **Exhaust alternatives** - Attempt reasonable workarounds or alternative approaches before concluding impossibility
-
-If the user demonstrates that the action is in fact possible, acknowledge the correction and proceed with execution immediately rather than defending the initial position.
-
-The goal is accuracy over confidence. An incorrect "I cannot do this" wastes the user's time and money.
-
 ## Project Overview
 **reliverecordings.com** — Static HTML/CSS/JS website for a live event recording business. Deployed on Netlify, auto-deploys from `master` branch.
 
@@ -23,6 +11,19 @@ The goal is accuracy over confidence. An incorrect "I cannot do this" wastes the
 - **Platform:** Netlify (GitHub auto-deploy from `master`)
 - **Config:** `netlify.toml` in repo root (security headers, CSP for YouTube/Spotify/Google Fonts)
 - Push to `master` triggers automatic deploy
+
+## Key Commands
+```bash
+npm test             # Run Jest unit tests
+npm run test:e2e     # Run Playwright E2E tests (Chromium)
+npm run lint         # Validate HTML, CSS, and JS (html-validate + stylelint + eslint)
+npm run serve        # Serve locally on port 8080
+```
+
+## Testing & Config
+- **Unit tests (Jest):** `__tests__/` — DOM-level tests for background rotation, contact form, cookie toast, copyright year, main.js
+- **E2E tests (Playwright):** `e2e/` — navigation, contact form, accessibility, visual regression
+- **Config files:** `eslint.config.js`, `jest.config.js`, `playwright.config.js`
 
 ## Netlify Forms
 - Contact form uses `data-netlify="true"` with `netlify-honeypot="bot-field"`
