@@ -247,12 +247,12 @@ describe('Dual-Layer Crossfade', () => {
     crossfade('image1.webp');
     expect(layers[0].classList.contains('bg-layer--active')).toBe(false);
     expect(layers[1].classList.contains('bg-layer--active')).toBe(true);
-    expect(layers[1].style.backgroundImage).toBe('url(image1.webp)');
+    expect(layers[1].style.backgroundImage).toBe('url("image1.webp")');
 
     crossfade('image2.webp');
     expect(layers[0].classList.contains('bg-layer--active')).toBe(true);
     expect(layers[1].classList.contains('bg-layer--active')).toBe(false);
-    expect(layers[0].style.backgroundImage).toBe('url(image2.webp)');
+    expect(layers[0].style.backgroundImage).toBe('url("image2.webp")');
   });
 
   test('should not start animation with fewer than 2 layers', () => {
