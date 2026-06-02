@@ -9,8 +9,12 @@
 describe('Mobile Navigation', () => {
   let navToggle;
   let nav;
+  let listenerController;
 
   beforeEach(() => {
+    // AbortController removes leaked document-level listeners in afterEach
+    listenerController = new AbortController();
+
     // Set up DOM
     document.body.innerHTML = `
       <button id="nav-toggle" aria-expanded="false">Menu</button>
@@ -56,14 +60,18 @@ describe('Mobile Navigation', () => {
         }
       });
 
-      document.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape' && navEl.classList.contains('nav-open')) {
-          navEl.classList.remove('nav-open');
-          navToggleEl.setAttribute('aria-expanded', 'false');
-          navToggleEl.focus();
-          cancelFocusTimeout();
-        }
-      });
+      document.addEventListener(
+        'keydown',
+        (evt) => {
+          if (evt.key === 'Escape' && navEl.classList.contains('nav-open')) {
+            navEl.classList.remove('nav-open');
+            navToggleEl.setAttribute('aria-expanded', 'false');
+            navToggleEl.focus();
+            cancelFocusTimeout();
+          }
+        },
+        { signal: listenerController.signal },
+      );
 
       for (const link of navEl.querySelectorAll('a')) {
         link.addEventListener('click', () => {
@@ -76,6 +84,7 @@ describe('Mobile Navigation', () => {
   });
 
   afterEach(() => {
+    listenerController.abort();
     document.body.innerHTML = '';
     jest.clearAllTimers();
   });
@@ -136,11 +145,15 @@ describe('Mobile Navigation', () => {
 
 describe('Cookie Toast', () => {
   let dialog;
+  let listenerController;
   const storageKey = 'rlrCookieToastDismissed-v1';
 
   beforeEach(() => {
     // Clear localStorage
     localStorage.clear();
+
+    // AbortController removes leaked document-level listeners in afterEach
+    listenerController = new AbortController();
 
     // Set up DOM with a mock dialog
     document.body.innerHTML = `
@@ -152,18 +165,16 @@ describe('Cookie Toast', () => {
 
     dialog = document.querySelector('.cookie-toast');
 
-    // Mock dialog methods if not available in jsdom
-    if (!dialog.show) {
-      dialog.show = jest.fn(() => {
-        dialog.open = true;
-      });
-    }
-    if (!dialog.close) {
-      dialog.close = jest.fn(() => {
-        dialog.open = false;
-        dialog.dispatchEvent(new Event('close'));
-      });
-    }
+    // Always install jest.fn mocks for the dialog methods (no `if (!dialog.x)`
+    // guard) so assertions always target a spy regardless of whether the jsdom
+    // build implements <dialog>. The element is recreated each test.
+    dialog.show = jest.fn(() => {
+      dialog.open = true;
+    });
+    dialog.close = jest.fn(() => {
+      dialog.open = false;
+      dialog.dispatchEvent(new Event('close'));
+    });
 
     // Re-run the cookie toast IIFE logic
     const persistDismissal = () => {
@@ -176,14 +187,19 @@ describe('Cookie Toast', () => {
 
     dialog.addEventListener('close', persistDismissal);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && dialog.open) {
-        dialog.close();
-      }
-    });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && dialog.open) {
+          dialog.close();
+        }
+      },
+      { signal: listenerController.signal },
+    );
   });
 
   afterEach(() => {
+    listenerController.abort();
     document.body.innerHTML = '';
     localStorage.clear();
   });
@@ -384,18 +400,18 @@ describe('Contact Form Dialog', () => {
     submitBtn = form.querySelector('.contact-form__submit');
     content = dialog.querySelector('.contact-dialog__content');
 
-    // Mock dialog methods
-    if (!dialog.showModal) {
-      dialog.showModal = jest.fn(() => {
-        dialog.open = true;
-      });
-    }
-    if (!dialog.close) {
-      dialog.close = jest.fn(() => {
-        dialog.open = false;
-        dialog.dispatchEvent(new Event('close'));
-      });
-    }
+    // Always install jest.fn mocks for the dialog methods (no `if (!dialog.x)`
+    // guard). jsdom does not implement <dialog>.showModal/close, but even if a
+    // future jsdom did, an own-property mock shadows it, so assertions like
+    // toHaveBeenCalled always target a spy. The element is recreated each test,
+    // so this never leaks onto the prototype.
+    dialog.showModal = jest.fn(() => {
+      dialog.open = true;
+    });
+    dialog.close = jest.fn(() => {
+      dialog.open = false;
+      dialog.dispatchEvent(new Event('close'));
+    });
 
     // Set up event listeners
     const contactLink = document.getElementById('contact-link');

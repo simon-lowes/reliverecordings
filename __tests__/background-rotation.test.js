@@ -164,22 +164,42 @@ describe('getNextImage Sequencing', () => {
     return result;
   };
 
-  test('should cycle through all images in a permutation before moving on', () => {
-    const images = ['A', 'B'];
-    const permutations = generatePermutations(images);
+  // Replicate the Fisher-Yates shuffle from main.js so the wrap path below
+  // exercises the same reshuffle-on-exhaustion logic as the real code.
+  const shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  // Mirrors js/main.js getNextImage(): advances through each permutation, then
+  // reshuffles the permutation list (in place) when all are exhausted.
+  const makeGetNextImage = (permutations) => {
     let permIndex = 0;
     let imageIndex = 0;
-
-    const getNextImage = () => {
+    return () => {
       if (imageIndex >= permutations[permIndex].length) {
         imageIndex = 0;
         permIndex++;
         if (permIndex >= permutations.length) {
           permIndex = 0;
+          shuffle(permutations);
         }
       }
       return permutations[permIndex][imageIndex++];
     };
+  };
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('should cycle through all images in a permutation before moving on', () => {
+    const images = ['A', 'B'];
+    const permutations = generatePermutations(images);
+    const getNextImage = makeGetNextImage(permutations);
 
     const first = getNextImage();
     const second = getNextImage();
@@ -190,28 +210,31 @@ describe('getNextImage Sequencing', () => {
     expect([third, fourth].sort()).toEqual(['A', 'B']);
   });
 
-  test('should wrap around after exhausting all permutations', () => {
+  test('should reshuffle the permutation list on wraparound', () => {
     const images = ['A', 'B'];
     const permutations = generatePermutations(images);
-    let permIndex = 0;
-    let imageIndex = 0;
+    // permutations === [['A','B'], ['B','A']]
+    const getNextImage = makeGetNextImage(permutations);
 
-    const getNextImage = () => {
-      if (imageIndex >= permutations[permIndex].length) {
-        imageIndex = 0;
-        permIndex++;
-        if (permIndex >= permutations.length) {
-          permIndex = 0;
-        }
-      }
-      return permutations[permIndex][imageIndex++];
-    };
+    // Force the Fisher-Yates swap (i=1, j=0) so the post-wrap order is
+    // deterministic: the two permutations swap positions.
+    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
 
+    // Exhaust both permutations (2 permutations x 2 images = 4 reads).
     for (let i = 0; i < 4; i++) {
       getNextImage();
     }
 
+    // The 5th read triggers wrap-and-reshuffle. With the forced swap, the list
+    // is now [['B','A'], ['A','B']], so the next image is 'B'.
     const next = getNextImage();
+
+    expect(randomSpy).toHaveBeenCalled();
+    expect(permutations).toEqual([
+      ['B', 'A'],
+      ['A', 'B'],
+    ]);
+    expect(next).toBe('B');
     expect(images).toContain(next);
   });
 });

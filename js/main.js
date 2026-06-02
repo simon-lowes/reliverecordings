@@ -116,12 +116,10 @@
     }
   });
 
-  // Handle click outside to dismiss
-  document.addEventListener('click', (e) => {
-    if (dialog.open && !dialog.contains(e.target)) {
-      dialog.close();
-    }
-  });
+  // Dismissal requires an explicit gesture: the OK button (form method="dialog")
+  // or Escape. We intentionally do NOT auto-close on outside clicks, because the
+  // first click anywhere on the page (e.g. opening the contact modal or a YouTube/
+  // Spotify embed) would otherwise dismiss the notice before it has been read.
 
   window.addEventListener('load', () => {
     let dismissed = false;

@@ -16,8 +16,12 @@ describe('Contact Form Modal', () => {
   let submitBtn;
   let content;
   let backdrop;
+  let listenerController;
 
   beforeEach(() => {
+    // AbortController removes the leaked document-level listener in afterEach
+    listenerController = new AbortController();
+
     document.body.innerHTML = `
       <a href="#contact" id="contact-link">Contact</a>
       <div id="contact-dialog" class="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
@@ -83,14 +87,19 @@ describe('Contact Form Modal', () => {
       content.dataset.state = 'form';
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-        closeModal();
-      }
-    });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      },
+      { signal: listenerController.signal },
+    );
   });
 
   afterEach(() => {
+    listenerController.abort();
     document.body.innerHTML = '';
     document.body.style.overflow = '';
   });
