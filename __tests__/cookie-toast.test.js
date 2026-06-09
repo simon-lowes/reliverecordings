@@ -9,9 +9,13 @@
 describe('Cookie Toast', () => {
   const storageKey = 'rlrCookieToastDismissed-v1';
   let dialog;
+  let listenerController;
 
   beforeEach(() => {
     localStorage.clear();
+
+    // AbortController removes leaked document-level listeners in afterEach
+    listenerController = new AbortController();
 
     document.body.innerHTML = `
       <dialog class="cookie-toast" aria-label="Cookie notice">
@@ -24,16 +28,16 @@ describe('Cookie Toast', () => {
 
     dialog = document.querySelector('.cookie-toast');
 
-    // jsdom doesn't fully implement dialog — mock show/close
-    if (!dialog.show) {
-      dialog.show = jest.fn(() => { dialog.open = true; });
-    }
-    if (!dialog.close) {
-      dialog.close = jest.fn(() => {
-        dialog.open = false;
-        dialog.dispatchEvent(new Event('close'));
-      });
-    }
+    // Always install jest.fn mocks for the dialog methods (no `if (!dialog.x)`
+    // guard) so assertions always target a spy regardless of whether the jsdom
+    // build implements <dialog>. The element is recreated each test.
+    dialog.show = jest.fn(() => {
+      dialog.open = true;
+    });
+    dialog.close = jest.fn(() => {
+      dialog.open = false;
+      dialog.dispatchEvent(new Event('close'));
+    });
 
     // Wire up the same logic from main.js
     const persistDismissal = () => {
@@ -46,20 +50,25 @@ describe('Cookie Toast', () => {
 
     dialog.addEventListener('close', persistDismissal);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && dialog.open) {
-        dialog.close();
-      }
-    });
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && dialog.open) {
+          dialog.close();
+        }
+      },
+      { signal: listenerController.signal },
+    );
 
-    document.addEventListener('click', (e) => {
-      if (dialog.open && !dialog.contains(e.target)) {
-        dialog.close();
-      }
+    // Mirror main.js: the OK button (<form method="dialog">) closes the dialog.
+    // There is intentionally no outside-click auto-dismiss.
+    dialog.querySelector('.cookie-toast__close').addEventListener('click', () => {
+      dialog.close();
     });
   });
 
   afterEach(() => {
+    listenerController.abort();
     document.body.innerHTML = '';
     localStorage.clear();
   });
@@ -121,12 +130,23 @@ describe('Cookie Toast', () => {
     expect(dialog.close).not.toHaveBeenCalled();
   });
 
-  test('should close dialog when clicking outside', () => {
+  test('should NOT close when clicking outside (requires explicit dismissal)', () => {
     dialog.show();
     expect(dialog.open).toBe(true);
 
-    // Click on body (outside dialog)
+    // Click on body (outside dialog) — must not dismiss the notice, otherwise
+    // the first click anywhere (e.g. opening the contact modal) would hide it.
     document.body.click();
+
+    expect(dialog.open).toBe(true);
+    expect(localStorage.getItem(storageKey)).toBeNull();
+  });
+
+  test('should close and persist when the OK button is clicked', () => {
+    dialog.show();
+    expect(dialog.open).toBe(true);
+
+    dialog.querySelector('.cookie-toast__close').click();
 
     expect(dialog.open).toBe(false);
     expect(localStorage.getItem(storageKey)).toBe('1');
